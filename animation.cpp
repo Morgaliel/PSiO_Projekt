@@ -16,7 +16,7 @@ Animation::~Animation()
 
 }
 
-void Animation::Update(sf::Texture* texture, unsigned int row, float deltaTime){
+void Animation::Update(sf::Texture* texture, unsigned int row, float deltaTime,sf::Vector2u imageCount){
     currentImage.y=row;
     totalTime += deltaTime;
 

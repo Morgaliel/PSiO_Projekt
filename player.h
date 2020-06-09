@@ -30,7 +30,12 @@ private:
 
     sf::Texture neutral;
     sf::Texture run;
+    sf::Texture attack;
     sf::Texture current;
+    sf::Vector2u imageCount;
+
+    bool canAttack;
+    sf::Vector2f att;
 };
 
 #endif // PLAYER_H

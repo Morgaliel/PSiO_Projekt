@@ -9,9 +9,12 @@ Player::Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, 
     body.setPosition(900,500);
     neutral.loadFromFile("images/paladin_neutral.png");
     run.loadFromFile("images/paladin_run.png");
-
+    attack.loadFromFile("images/paladin_attack.png");
     current=neutral;
     body.setTexture(&current);
+    this->canAttack=true;
+    this->imageCount=imageCount;
+    body.setTextureRect(sf::IntRect(0, 0, 75, 95));
 }
 
 Player::~Player(){}
@@ -19,6 +22,8 @@ Player::~Player(){}
 void Player::Update(float deltaTime){
     sf::Vector2f movement(0.0f,0.0f);
 
+    imageCount.x=8;
+    body.setScale(1,1);
     player_bounds=body.getGlobalBounds();
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         movement.x-=speed*deltaTime;
@@ -57,7 +62,17 @@ void Player::Update(float deltaTime){
         body.setTexture(&current);
     }
 
-    animation.Update(&current,row,deltaTime);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+        canAttack=false;
+        movement.x=0;
+        movement.y=0;
+        current=attack;
+        body.setTexture(&current);
+        body.setScale(1.5,1.5);
+        imageCount.x=15;
+        animation.Update(&current,row,deltaTime,imageCount);
+    }
+    animation.Update(&current,row,deltaTime,imageCount);
     body.setTextureRect(animation.uvRect);
     body.move(movement);
 
@@ -80,5 +95,8 @@ Collider Player::GetCollider() {return Collider(body);}
 
 sf::Vector2f Player::GetPosition()
 {
-    return body.getPosition();
+    sf::Vector2f pos=body.getPosition();
+    pos.x+=body.getOrigin().x;
+    pos.y+=body.getOrigin().y;
+    return pos;
 }

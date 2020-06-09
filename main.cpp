@@ -21,7 +21,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "My window");
     sf::View view(sf::Vector2f(0.0f,0.0f),sf::Vector2f(1280.0f,VIEW_HEIGHT));
     // create some shapes
-    const int level[] =
+    const int level_1[] =
         {
             40, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
@@ -35,7 +35,7 @@ int main() {
     sf::Texture tileset;
     tileset.loadFromFile("images/swamp_ground.png");
     Tilemap map;
-    if (!map.load("images/swamp_ground.png", sf::Vector2u(160, 80), level, 20, 10))
+    if (!map.load("images/swamp_ground.png", sf::Vector2u(160, 80), level_1, 16, 8))
             return -1;
 
     //hero

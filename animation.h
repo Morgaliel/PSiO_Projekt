@@ -8,7 +8,7 @@ public:
     Animation(sf::Texture* texture,sf::Vector2u imageCount, float switchTime);
     ~Animation();
 
-    void Update(sf::Texture* texture, unsigned int row, float deltaTime);
+    void Update(sf::Texture* texture, unsigned int row, float deltaTime,sf::Vector2u imageCount);
 
     sf::IntRect uvRect;
 private:

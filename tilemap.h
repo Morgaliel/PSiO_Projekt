@@ -1,6 +1,5 @@
 #ifndef TILEMAP_H
 #define TILEMAP_H
-#include "tile.h"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
