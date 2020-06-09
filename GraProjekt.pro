@@ -7,6 +7,8 @@ SOURCES += \
         animation.cpp \
         collider.cpp \
         main.cpp \
+        tile.cpp \
+        tilemap.cpp \
         wall.cpp \
         player.cpp
 INCLUDEPATH += "C:/SFML-2.5.1/include"
@@ -21,5 +23,7 @@ CONFIG(debug, debug|release){
 HEADERS += \
     animation.h \
     collider.h \
+    tile.h \
+    tilemap.h \
     wall.h \
     player.h

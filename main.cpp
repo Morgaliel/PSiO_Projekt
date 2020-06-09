@@ -5,6 +5,7 @@
 #include <vector>
 #include <player.h>
 #include <wall.h>
+#include <tilemap.h>
 
 static const float VIEW_HEIGHT=720.0f;
 
@@ -20,21 +21,26 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "My window");
     sf::View view(sf::Vector2f(0.0f,0.0f),sf::Vector2f(1280.0f,VIEW_HEIGHT));
     // create some shapes
-    //grass
-    sf::Texture textureSky;
-    if (!textureSky.loadFromFile("D:/STUDIA/PSiO/QTProjekty/GraProjekt/images/sky.png")) {
-        std::cerr << "Could not load grass" << std::endl;
-    }
-    textureSky.setRepeated(true);
-
-    sf::Sprite sky;
-    sky.setTexture(textureSky);
-    sky.setScale(1.0f, 3.0f);
-    sky.setTextureRect(sf::IntRect(0, 0, 1280, 720));
+    const int level[] =
+        {
+            40, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+            1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
+            0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
+            0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
+            0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
+            2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
+            0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
+        };
+    sf::Texture tileset;
+    tileset.loadFromFile("images/swamp_ground.png");
+    Tilemap map;
+    if (!map.load("images/swamp_ground.png", sf::Vector2u(160, 80), level, 20, 10))
+            return -1;
 
     //hero
     sf::Texture tex;
-    tex.loadFromFile("D:/STUDIA/PSiO/QTProjekty/GraProjekt/images/paladin_neutral.png");
+    tex.loadFromFile("images/paladin_neutral.png");
 
 
     Player hero(&tex,sf::Vector2u(8,16),0.1f,200.0f);
@@ -42,7 +48,7 @@ int main() {
 
     //walls
     sf::Texture textureWall;
-    if(!textureWall.loadFromFile("D:/STUDIA/PSiO/QTProjekty/GraProjekt/images/wall.png")) {
+    if(!textureWall.loadFromFile("images/wall.png")) {
         std::cerr << "Could not load wall" << std::endl;
     }
     textureWall.setRepeated(true);
@@ -86,9 +92,9 @@ int main() {
         view.setCenter(hero.GetPosition());
 
         Collider col=hero.GetCollider();
-        for(Wall& p:walls){
+        /*for(Wall& p:walls){
             p.GetCollider().CheckCollision(col,1.0f);
-        }
+        }*/
 
 
 
@@ -96,11 +102,11 @@ int main() {
         window.clear(sf::Color::Black);
         window.setView(view);
         // draw everything here...
-        window.draw(sky);
+        window.draw(map);
         hero.Draw(window);
-        for(Wall& p:walls){
+        /*for(Wall& p:walls){
             p.Draw((window));
-        }
+        }*/
 
         // end the current frame
         window.display();

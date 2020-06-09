@@ -6,9 +6,9 @@ Player::Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, 
     row=0;
     body.setSize(sf::Vector2f(50.0f,75.0f));
     body.setOrigin(body.getSize()/2.0f);
-    body.setPosition(100,100);
-    neutral.loadFromFile("D:/STUDIA/PSiO/QTProjekty/GraProjekt/images/paladin_neutral.png");
-    run.loadFromFile("D:/STUDIA/PSiO/QTProjekty/GraProjekt/images/paladin_run.png");
+    body.setPosition(900,500);
+    neutral.loadFromFile("images/paladin_neutral.png");
+    run.loadFromFile("images/paladin_run.png");
 
     current=neutral;
     body.setTexture(&current);
