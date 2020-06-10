@@ -5,9 +5,13 @@ CONFIG -= qt
 
 SOURCES += \
         animation.cpp \
+        button.cpp \
+        character.cpp \
         collider.cpp \
         game.cpp \
+        gstate.cpp \
         main.cpp \
+        mainmenu.cpp \
         resources.cpp \
         tilemap.cpp \
         wall.cpp \
@@ -23,8 +27,12 @@ CONFIG(debug, debug|release){
 
 HEADERS += \
     animation.h \
+    button.h \
+    character.h \
     collider.h \
     game.h \
+    gstate.h \
+    mainmenu.h \
     resources.h \
     tilemap.h \
     wall.h \

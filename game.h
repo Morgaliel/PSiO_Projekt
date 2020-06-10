@@ -1,20 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
+#include <mainmenu.h>
 
-#include <iostream>
-#include <cstdlib>
-#include <vector>
-#include <player.h>
-#include <wall.h>
-#include <tilemap.h>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
-#include <player.h>
-#include <wall.h>
-#include <tilemap.h>
 
 static const float VIEW_HEIGHT=600.0f;
 
@@ -23,6 +10,8 @@ class Game
 public:
     Game();
     ~Game();
+
+    void quitGame();
 
     void updateDT();
     void updateEvents();
@@ -39,11 +28,14 @@ private:
     sf::Clock theClock;
     float deltaTime;
 
+    std::stack<Resources*> layers;
+
     Player *hero;
     Tilemap *map;
 
     //Init
-    void initializeWindow();
+    void initWindow();
+    void initResources();
 
 };
 

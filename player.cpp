@@ -27,6 +27,7 @@ void Player::Update(float deltaTime){
     imageCount.x=8;
     body.setScale(1,1);
     player_bounds=body.getGlobalBounds();
+
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         velocity.x-=speed;
         row=4;
@@ -56,7 +57,26 @@ void Player::Update(float deltaTime){
         row=10;
     }
 
-
+    /*if (mousePos.y > playerImage.getPosition().y)
+    {
+     source.y = Down;
+     playerImage.move(0, 1);
+    }
+    else if (mousePos.y < playerImage.getPosition().y)
+    {
+     source.y = Up;
+     playerImage.move(0, -1);
+    }
+    else if (mousePos.x < playerImage.getPosition().x)
+    {
+     source.y = Left;
+     playerImage.move(-1, 0);
+    }
+    else if (mousePos.x > playerImage.getPosition().x)
+    {
+     source.y = Right;
+     playerImage.move(1, 0);
+    }*/
 
     if(velocity.x==0.0f && velocity.y==0.0f){
         current=neutral;

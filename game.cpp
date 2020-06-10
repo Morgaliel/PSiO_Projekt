@@ -7,18 +7,25 @@ void ResizeView(const sf::RenderWindow &window,sf::View &view){
     view.setSize(VIEW_HEIGHT*aspectRatio,VIEW_HEIGHT);
 }
 
-//Initializer functions
-void Game::initializeWindow()
+//Init functions
+void Game::initWindow()
 {
     this->window=new sf::RenderWindow(sf::VideoMode(1280, 720), "MaksGra");
     this->view=new sf::View(sf::Vector2f(0.0f,0.0f),sf::Vector2f(800.0f,VIEW_HEIGHT));
+}
+
+void Game::initResources()
+{
+    //this->layers.push(new GState(this->window));
+    this->layers.push(new MainMenu(this->window,&this->layers));
 }
 
 
 //Constructor/Destructor
 Game::Game()
 {
-    this->initializeWindow();
+    this->initWindow();
+    this->initResources();
     this->deltaTime=0.0f;
 
     //hero settings
@@ -57,15 +64,24 @@ Game::Game()
 Game::~Game()
 {
     delete this->window;
+
+    while(!this->layers.empty()){
+        delete this->layers.top();
+        this->layers.pop();
+    }
 }
 
+
+
+//Funcutions
+void Game::quitGame()
+{
+    std::cout<<"ELO"<<"/n";
+}
 void Game::updateDT()
 {
     this->deltaTime = this->theClock.restart().asSeconds();
 }
-
-
-//Funcutions
 void Game::updateEvents()
 {
 
@@ -101,15 +117,31 @@ void Game::updateEvents()
 void Game::update()
 {
     this->updateEvents();
+
+    if(!this->layers.empty()){
+        this->layers.top()->update(this->deltaTime);
+
+        if(this->layers.top()->getEnd()){
+            this->layers.top()->endLayer();
+            delete this->layers.top();
+            this->layers.pop();
+        }
+    }else{
+        this->quitGame();
+        this->window->close();
+    }
 }
 
 void Game::render()
 {
     // clear and view
     this->window->clear(sf::Color::Black);
-    this->window->setView(*view);
+    //this->window->setView(*view);
 
-    //Draw things here
+    //render
+    if(!this->layers.empty()){
+        this->layers.top()->render();
+    }
     //this->window->draw(*map);
     hero->Draw(*window);
     /*for(Wall& p:walls){
@@ -127,7 +159,7 @@ void Game::run()
     //FOR NOW THIS IS HERE
 
         //walls
-        sf::Texture textureWall;
+        /*sf::Texture textureWall;
         if(!textureWall.loadFromFile("images/wall.png")) {
             std::cerr << "Could not load wall" << std::endl;
         }
@@ -139,7 +171,7 @@ void Game::run()
         walls.push_back(Wall(&textureWall,sf::Vector2f(300.0f,100.0f),sf::Vector2f(400.0f,180.0f)));
         walls.push_back(Wall(&textureWall,sf::Vector2f(250.0f,100.0f),sf::Vector2f(860.0f,380.0f)));
         walls.push_back(Wall(&textureWall,sf::Vector2f(3500.0f,150.0f),sf::Vector2f(640.0f,690.0f)));
-
+*/
 
         //DELETE LATER
         this->updateDT();
