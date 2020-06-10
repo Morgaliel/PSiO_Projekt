@@ -6,7 +6,9 @@ CONFIG -= qt
 SOURCES += \
         animation.cpp \
         collider.cpp \
+        game.cpp \
         main.cpp \
+        resources.cpp \
         tilemap.cpp \
         wall.cpp \
         player.cpp
@@ -22,6 +24,8 @@ CONFIG(debug, debug|release){
 HEADERS += \
     animation.h \
     collider.h \
+    game.h \
+    resources.h \
     tilemap.h \
     wall.h \
     player.h
