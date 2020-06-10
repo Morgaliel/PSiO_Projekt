@@ -6,7 +6,7 @@ Player::Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, 
     row=0;
     body.setSize(sf::Vector2f(50.0f,75.0f));
     body.setOrigin(body.getSize()/2.0f);
-    body.setPosition(900,500);
+    body.setPosition(1500,500);
     neutral.loadFromFile("images/paladin_neutral.png");
     run.loadFromFile("images/paladin_run.png");
     attack.loadFromFile("images/paladin_attack.png");
@@ -20,25 +20,27 @@ Player::Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, 
 Player::~Player(){}
 
 void Player::Update(float deltaTime){
-    sf::Vector2f movement(0.0f,0.0f);
+
+    velocity.x=0.0f;
+    velocity.y=0.0f;
 
     imageCount.x=8;
     body.setScale(1,1);
     player_bounds=body.getGlobalBounds();
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        movement.x-=speed*deltaTime;
+        velocity.x-=speed;
         row=4;
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        movement.x+=speed*deltaTime;
+        velocity.x+=speed;
         row=12;
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        movement.y-=speed*deltaTime;
+        velocity.y-=speed;
         row=8;
         }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        movement.y+=speed*deltaTime;
+        velocity.y+=speed;
         row=0;
         }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
@@ -54,7 +56,9 @@ void Player::Update(float deltaTime){
         row=10;
     }
 
-    if(movement.x==0.0f && movement.y==0.0f){
+
+
+    if(velocity.x==0.0f && velocity.y==0.0f){
         current=neutral;
         body.setTexture(&current);
     }else{
@@ -63,18 +67,17 @@ void Player::Update(float deltaTime){
     }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-        canAttack=false;
-        movement.x=0;
-        movement.y=0;
+        velocity.x=0;
+        velocity.y=0;
         current=attack;
         body.setTexture(&current);
-        body.setScale(1.5,1.5);
+        body.setScale(1.7,1.4);
         imageCount.x=15;
-        animation.Update(&current,row,deltaTime,imageCount);
+        deltaTime*=2;
     }
     animation.Update(&current,row,deltaTime,imageCount);
     body.setTextureRect(animation.uvRect);
-    body.move(movement);
+    body.move(velocity*deltaTime);
 
 }
 

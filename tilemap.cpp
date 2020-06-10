@@ -1,8 +1,10 @@
 #include "tilemap.h"
 
 
-bool Tilemap::load(const std::string &tileset, sf::Vector2u tileSize, const int *tiles, unsigned int width, unsigned int height)
+bool Tilemap::load(const std::string &tileset, const int *tiles, unsigned int width, unsigned int height)
 {
+            tileSize.x=160;
+            tileSize.y=80;
     // load the tileset texture
             if (!m_tileset.loadFromFile(tileset))
                 return false;
@@ -10,7 +12,7 @@ bool Tilemap::load(const std::string &tileset, sf::Vector2u tileSize, const int 
             // resize the vertex array to fit the level size
             m_vertices.setPrimitiveType(sf::Quads);
             m_vertices.resize(width * height * 4);
-            sf::Vector2i vOrigin(5,1);
+            sf::Vector2i vOrigin(8,1);
             // populate the vertex array, with one quad per tile
 
             for (unsigned int i = 0; i < width; ++i)

@@ -7,7 +7,7 @@
 #include <wall.h>
 #include <tilemap.h>
 
-static const float VIEW_HEIGHT=720.0f;
+static const float VIEW_HEIGHT=600.0f;
 
 void ResizeView(const sf::RenderWindow &window,sf::View &view){
     float aspectRatio=float(window.getSize().x)/float(window.getSize().y);
@@ -19,24 +19,34 @@ int main() {
 
     // create the window
     sf::RenderWindow window(sf::VideoMode(1280, 720), "My window");
-    sf::View view(sf::Vector2f(0.0f,0.0f),sf::Vector2f(1280.0f,VIEW_HEIGHT));
-    // create some shapes
-    const int level_1[] =
+    sf::View view(sf::Vector2f(0.0f,0.0f),sf::Vector2f(800.0f,VIEW_HEIGHT));
+    // MAPS
+    const int level_1_ground[] =
         {
-            40, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-            0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
-            1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
+            1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            0, 1, 1, 1, 1, 1, 1, 141, 140, 0, 0, 2, 0, 0, 0, 0,
+            1, 1, 0, 0, 0, 0, 0, 144, 143, 142, 3, 3, 3, 3, 3, 3,
+            0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
+            0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
+            0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
+            2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
+            0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
+            1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 2, 0, 0, 0, 0,
+            1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 3, 3, 3, 3, 3, 3,
             0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
             0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
             0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
             2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
             0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
         };
+
     sf::Texture tileset;
     tileset.loadFromFile("images/swamp_ground.png");
-    Tilemap map;
-    if (!map.load("images/swamp_ground.png", sf::Vector2u(160, 80), level_1, 16, 8))
+    Tilemap outside;
+    if (!outside.load("images/swamp_ground.png", level_1_ground, 16, 16))
             return -1;
+
 
     //hero
     sf::Texture tex;
@@ -102,7 +112,7 @@ int main() {
         window.clear(sf::Color::Black);
         window.setView(view);
         // draw everything here...
-        window.draw(map);
+        window.draw(outside);
         hero.Draw(window);
         /*for(Wall& p:walls){
             p.Draw((window));

@@ -23,6 +23,7 @@ void Animation::Update(sf::Texture* texture, unsigned int row, float deltaTime,s
     uvRect.width=texture->getSize().x/float(imageCount.x);
     uvRect.height=texture->getSize().y/float(imageCount.y)+1;
 
+
     if(totalTime>=switchTime){
         totalTime-=switchTime;
         currentImage.x++;

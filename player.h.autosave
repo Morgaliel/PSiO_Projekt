@@ -29,7 +29,6 @@ private:
     float speed;
 
     sf::Vector2f velocity;
-
     sf::Texture neutral;
     sf::Texture run;
     sf::Texture attack;
