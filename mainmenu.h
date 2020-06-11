@@ -9,18 +9,20 @@ public:
     MainMenu(sf::RenderWindow* window,std::stack<Resources*>* layers);
     virtual ~MainMenu();
 
-    void endLayer();
     void updateInput(const float &deltaTime);
     void updateButtons();
     void update(const float &deltaTime);
     void renderButtons();
     void render();
 private:
+    sf::Texture backgroundTexture;
     sf::RectangleShape background;
     sf::Font font;
 
     std::map<std::string, Button*> buttons;
 
+    void initVariables();
+    void initBackground();
     void initFonts();
     void initButtons();
 };

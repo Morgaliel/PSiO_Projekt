@@ -6,7 +6,7 @@
 
 class Collider{
 public:
-    Collider(sf::RectangleShape& body);
+    Collider(sf::Sprite& body);
     ~Collider();;
 
     void Move(float dx, float dy);
@@ -15,7 +15,7 @@ public:
     sf::Vector2f GetPosition();
     sf::Vector2f GetHalfSize();
 private:
-    sf::RectangleShape& body;
+    sf::Sprite& body;
 };
 
 #endif // COLLIDER_H

@@ -1,6 +1,6 @@
 #ifndef RESOURCES_H
 #define RESOURCES_H
-#include <character.h>
+#include <player.h>
 
 
 class Resources
@@ -10,16 +10,15 @@ public:
     virtual ~Resources();
 
     const bool& getEnd() const; //getquit
-    virtual void closeLayer(); //checkforquit
+    void endLayer(); //endState
 
-    virtual void endLayer()=0; //endState
     virtual void updateMousePos();
     virtual void updateInput(const float& deltaTime)=0;
     virtual void update(const float& deltaTime)=0;
     virtual void render()=0;
 protected:
     std::stack<Resources*>* layers;
-    std::vector<sf::Texture> textures;
+    std::map<std::string, sf::Texture> textures;
     sf::RenderWindow* window;
     bool end;
 

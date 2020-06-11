@@ -1,38 +1,34 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <stack>
-#include <map>
-#include <player.h>
-#include <wall.h>
-#include <tilemap.h>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
+#include <move.h>
+#include <animation.h>
 
-class Character
+
+class Character:public sf::Sprite
 {
 public:
     Character();
     virtual ~Character();
 
-    virtual void move(const float &deltaTime, const float x, const float y);
+    void setTexture(sf::Texture& texture);
+    void createMove(const float speed);
+    void createAnimation(sf::Texture& textureSheet);
 
-    virtual void update(const float& deltaTime)=0;
-    virtual void render()=0;
+    void setRow(unsigned int row);
+    virtual void setPosition(const sf::Vector2f position);
+    virtual void move(const sf::Vector2f direction,const float &deltaTime);
+
+    virtual void update(const float& deltaTime);
+    virtual void render(sf::RenderWindow* window);
 
 protected:
-    sf::RectangleShape shape;
-    float speed;
-private:
+    sf::Sprite sprite;
+    Move* movement;
+    std::vector<Animation> animation;
+    unsigned int row;
 
+private:
+    void initVariables();
 };
 
 #endif // CHARACTER_H

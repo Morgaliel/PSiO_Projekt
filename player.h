@@ -1,42 +1,26 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include <SFML/Graphics.hpp>
-#include <cmath>
 #include "animation.h"
 #include "collider.h"
+#include <character.h>
 
-class Player {
+class Player:public Character
+{
 public:
-    Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime,float speed);
+    Player(sf::Vector2f position,std::map<std::string, sf::Texture> &textures);
     ~Player();
 
-    void Update(float deltaTime);
+    //void Update(float deltaTime);
+    void update(const float& deltaTime);
 
-
-    void Draw(sf::RenderWindow& window);
-
-    void setBounds(int top, int height, int left, int width );
 
     Collider GetCollider();
 
     sf::Vector2f GetPosition();
 private:
-    sf::RectangleShape body;
-    Animation animation;
-    sf::FloatRect player_bounds;
-    sf::IntRect limit;
-    unsigned int row;
-    float speed;
 
-    sf::Vector2f velocity;
-    sf::Texture neutral;
-    sf::Texture run;
-    sf::Texture attack;
-    sf::Texture current;
-    sf::Vector2u imageCount;
-
-    bool canAttack;
-    sf::Vector2f att;
+    void initVariables();
+    void initComponents();
 };
 
 #endif // PLAYER_H

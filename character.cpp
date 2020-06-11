@@ -1,18 +1,62 @@
 #include "character.h"
 
+void Character::initVariables()
+{
+    this->movement=nullptr;
+}
+
 Character::Character()
 {
-    this->shape.setSize(sf::Vector2f(50.0f,50.0f));
-    this->speed=100.0f;
+    this->initVariables();
 }
 
 Character::~Character()
 {
-
+    delete this->movement;
 }
 
-void Character::move(const float &deltaTime, const float dir_x, const float dir_y)
+void Character::setTexture(sf::Texture &texture)
 {
-    //mam to rozwiązane lepiej w playerze!
-    this->shape.move(dir_x*this->speed*deltaTime,dir_y*this->speed*deltaTime);
+    this->sprite.setTexture(texture);
 }
+
+
+void Character::createMove(const float speed)
+{
+    this->movement = new Move(this->sprite,speed);
+}
+
+void Character::createAnimation(sf::Texture &textureSheet)
+{
+    //this->animation=new Animation(this->sprite,textureSheet);
+    animation.emplace_back(Animation(this->sprite,textureSheet));
+}
+
+void Character::setRow(unsigned int row)
+{
+    this->row=row;
+}
+
+void Character::setPosition(const sf::Vector2f position)
+{
+        this->sprite.setPosition(position.x,position.y);
+}
+
+void Character::move(const sf::Vector2f direction,const float &deltaTime)
+{
+    if(this->movement){
+        this->movement->move(direction, deltaTime); //sets velocity
+    }
+}
+
+void Character::update(const float &deltaTime)
+{
+
+}
+
+void Character::render(sf::RenderWindow* window)
+{
+    window->draw(this->sprite);
+}
+
+

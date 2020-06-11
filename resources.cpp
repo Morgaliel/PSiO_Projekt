@@ -17,11 +17,9 @@ const bool &Resources::getEnd() const
     return this->end;
 }
 
-void Resources::closeLayer()
+void Resources::endLayer()
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
-        this->end=true;
-    }
+    this->end=true;
 }
 
 void Resources::updateMousePos()

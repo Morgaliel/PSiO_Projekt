@@ -1,120 +1,48 @@
 #include "player.h"
 
+void Player::initVariables()
+{
 
-Player::Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed):animation(texture,imageCount,switchTime){
-    this->speed=speed;
+}
+
+void Player::initComponents()
+{
+
+}
+
+Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textures){
+
+    this->initVariables();
     row=0;
-    body.setSize(sf::Vector2f(50.0f,75.0f));
-    body.setOrigin(body.getSize()/2.0f);
-    body.setPosition(1500,500);
-    neutral.loadFromFile("images/paladin_neutral.png");
-    run.loadFromFile("images/paladin_run.png");
-    attack.loadFromFile("images/paladin_attack.png");
-    current=neutral;
-    body.setTexture(&current);
-    this->canAttack=true;
-    this->imageCount=imageCount;
-    body.setTextureRect(sf::IntRect(0, 0, 75, 95));
+
+    this->setPosition(position);
+
+    this->createMove(200.0f);
+    this->createAnimation(textures["PLAYER_NEUTRAL"]);
+    this->createAnimation(textures["PLAYER_RUN"]);
+
+    this->animation[0].addAnimation("PLAYER_NEUTRAL",sf::Vector2u(8,16),0.1f);
+    this->animation[1].addAnimation("PLAYER_RUN",sf::Vector2u(8,16),0.1f);
+
 }
 
 Player::~Player(){}
 
-void Player::Update(float deltaTime){
 
-    velocity.x=0.0f;
-    velocity.y=0.0f;
-
-    imageCount.x=8;
-    body.setScale(1,1);
-    player_bounds=body.getGlobalBounds();
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        velocity.x-=speed;
-        row=4;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        velocity.x+=speed;
-        row=12;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        velocity.y-=speed;
-        row=8;
-        }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        velocity.y+=speed;
-        row=0;
-        }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        row=2;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        row=6;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        row=14;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        row=10;
-    }
-
-    /*if (mousePos.y > playerImage.getPosition().y)
-    {
-     source.y = Down;
-     playerImage.move(0, 1);
-    }
-    else if (mousePos.y < playerImage.getPosition().y)
-    {
-     source.y = Up;
-     playerImage.move(0, -1);
-    }
-    else if (mousePos.x < playerImage.getPosition().x)
-    {
-     source.y = Left;
-     playerImage.move(-1, 0);
-    }
-    else if (mousePos.x > playerImage.getPosition().x)
-    {
-     source.y = Right;
-     playerImage.move(1, 0);
-    }*/
-
-    if(velocity.x==0.0f && velocity.y==0.0f){
-        current=neutral;
-        body.setTexture(&current);
-    }else{
-        current=run;
-        body.setTexture(&current);
-    }
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-        velocity.x=0;
-        velocity.y=0;
-        current=attack;
-        body.setTexture(&current);
-        body.setScale(1.7,1.4);
-        imageCount.x=15;
-        deltaTime*=2;
-    }
-    animation.Update(&current,row,deltaTime,imageCount);
-    body.setTextureRect(animation.uvRect);
-    body.move(velocity*deltaTime);
-
-}
-
-void Player::Draw(sf::RenderWindow &window){
-    window.draw(body);
-}
-
-
-void Player::setBounds(int top, int height, int left, int width)
+void Player::update(const float &deltaTime)
 {
-    limit.top = top;
-    limit.height = height;
-    limit.left = left;
-    limit.width = width;
+    this->movement->update(deltaTime);
+
+    if(this->movement->isStopped()){
+        this->animation[0].play("PLAYER_NEUTRAL",deltaTime,this->row);
+    }else{
+        this->animation[1].play("PLAYER_RUN",deltaTime,this->row);
+    }
+
 }
 
-Collider Player::GetCollider() {return Collider(body);}
+/*
+//Collider Player::GetCollider() {return Collider(body);}
 
 sf::Vector2f Player::GetPosition()
 {
@@ -122,4 +50,4 @@ sf::Vector2f Player::GetPosition()
     pos.x+=body.getOrigin().x;
     pos.y+=body.getOrigin().y;
     return pos;
-}
+}*/

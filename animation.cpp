@@ -1,37 +1,32 @@
 #include "animation.h"
 
-Animation::Animation(sf::Texture* texture,sf::Vector2u imageCount, float switchTime)
+Animation::Animation(sf::Sprite& sprite,sf::Texture& textureSheet):sprite(sprite),textureSheet(textureSheet),lastAnimation(nullptr)
 {
-    this->imageCount=imageCount;
-    this->switchTime=switchTime;
-    totalTime=0;
-    currentImage.x=0;
 
-    uvRect.width=texture->getSize().x/float(imageCount.x);
-    uvRect.height=texture->getSize().y/float(imageCount.y)+1;
 }
 
 Animation::~Animation()
 {
-
+    for(auto &it:this->animations){
+        delete it.second;
+    }
 }
 
-void Animation::Update(sf::Texture* texture, unsigned int row, float deltaTime,sf::Vector2u imageCount){
-    currentImage.y=row;
-    totalTime += deltaTime;
+void Animation::addAnimation(const std::string key,sf::Vector2u imageCount, float switchTime)
+{
+    this->animations[key]= new Animate(this->sprite,this->textureSheet,imageCount,switchTime);
+}
 
-    uvRect.width=texture->getSize().x/float(imageCount.x);
-    uvRect.height=texture->getSize().y/float(imageCount.y)+1;
-
-
-    if(totalTime>=switchTime){
-        totalTime-=switchTime;
-        currentImage.x++;
-            if(currentImage.x>=imageCount.x){
-                currentImage.x=0;
-            }
+void Animation::play(const std::string key,const float& deltaTime,unsigned int row)
+{
+    if(this->lastAnimation!=this->animations[key]){
+        if(this->lastAnimation==nullptr){
+            this->lastAnimation=this->animations[key];
+        }else{
+            this->lastAnimation->reset();
+            this->lastAnimation=this->animations[key];
+        }
     }
-    uvRect.top=currentImage.y*uvRect.height;
-    uvRect.left=currentImage.x*uvRect.width;
-    uvRect.width=abs(uvRect.width);
+
+    this->animations[key]->play(deltaTime,row);
 }

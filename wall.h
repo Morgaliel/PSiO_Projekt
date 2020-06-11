@@ -6,10 +6,10 @@
 
 class Wall{
 public:
-    Wall(sf::Texture *texture, sf::Vector2f size, sf::Vector2f position);;
-    ~Wall();;
-    void Draw(sf::RenderWindow& window);;
-    Collider GetCollider();;
+    Wall(sf::Texture *texture, sf::Vector2f size, sf::Vector2f position);
+    ~Wall();
+    void Draw(sf::RenderWindow& window);
+    Collider GetCollider();
 private:
     sf::RectangleShape body;
 };

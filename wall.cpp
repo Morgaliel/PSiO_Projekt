@@ -17,4 +17,4 @@ void Wall::Draw(sf::RenderWindow &window){
     window.draw(body);
 }
 
-Collider Wall::GetCollider() {return Collider(body);}
+//Collider Wall::GetCollider() {return Collider(body);}

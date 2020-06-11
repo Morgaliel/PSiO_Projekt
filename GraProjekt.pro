@@ -12,6 +12,7 @@ SOURCES += \
         gstate.cpp \
         main.cpp \
         mainmenu.cpp \
+        move.cpp \
         resources.cpp \
         tilemap.cpp \
         wall.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     game.h \
     gstate.h \
     mainmenu.h \
+    move.h \
     resources.h \
     tilemap.h \
     wall.h \

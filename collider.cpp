@@ -1,6 +1,6 @@
 #include "collider.h"
 
-Collider::Collider(sf::RectangleShape& body):body(body){}
+Collider::Collider(sf::Sprite& body):body(body){}
 
 Collider::~Collider(){}
 
@@ -46,4 +46,4 @@ bool Collider::CheckCollision(Collider &other, float push){
 
 sf::Vector2f Collider::GetPosition(){return body.getPosition();}
 
-sf::Vector2f Collider::GetHalfSize(){return body.getSize()/2.0f;}
+sf::Vector2f Collider::GetHalfSize(){return sf::Vector2f(35,47);}

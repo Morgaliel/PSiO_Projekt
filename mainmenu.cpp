@@ -1,29 +1,45 @@
 #include "mainmenu.h"
 
+
+void MainMenu::initVariables()
+{
+
+}
+void MainMenu::initBackground()
+{
+    this->background.setSize(sf::Vector2f(window->getSize().x,window->getSize().y));
+
+    if(!this->backgroundTexture.loadFromFile("images/menu_background.png")){
+        std::cout<<"there is no background menu texture"<<std::endl;
+    }
+
+    this->background.setTexture(&this->backgroundTexture);
+}
 void MainMenu::initFonts()
 {
-    if(!this->font.loadFromFile("fonts/arial.ttf")){
+    if(!this->font.loadFromFile("fonts/diablo_h.ttf")){
         std::cout<<"smth wrong with the font"<<std::endl;
     }
 }
 
 void MainMenu::initButtons()
 {
-    this->buttons["GAME"]=new Button(100,100,150,50,&this->font, "New Game",
+    this->buttons["GAME"]=new Button(400,600,150,50,&this->font, "New Game",
                                 sf::Color(70,70,70,200),sf::Color(150,150,150,255),sf::Color(20,20,20,200));
-    this->buttons["EXIT"]=new Button(100,300,150,50,&this->font, "Quit",
+    this->buttons["EXIT"]=new Button(700,600,150,50,&this->font, "Quit",
                                 sf::Color(70,70,70,200),sf::Color(150,150,150,255),sf::Color(20,20,20,200));
 
 }
 
+
 MainMenu::MainMenu(sf::RenderWindow* window,std::stack<Resources*>* layers):Resources(window,layers)
 {
+    this->initVariables();
+    this->initBackground();
     this->initFonts();
     this->initButtons();
 
 
-    this->background.setSize(sf::Vector2f(window->getSize().x,window->getSize().y));
-    this->background.setFillColor(sf::Color::Blue);
 }
 
 MainMenu::~MainMenu()
@@ -33,15 +49,9 @@ MainMenu::~MainMenu()
     }
 }
 
-void MainMenu::endLayer()
-{
-    //debugging lvl expert
-    std::cout<<"Out of menu"<<std::endl;
-}
 
 void MainMenu::updateInput(const float &deltaTime)
 {
-    this->closeLayer();
 }
 
 void MainMenu::updateButtons()
@@ -55,7 +65,7 @@ void MainMenu::updateButtons()
     }
 
     if(this->buttons["EXIT"]->isPressed()){
-        this->end=true;
+        this->endLayer();
     }
 }
 
@@ -78,5 +88,7 @@ void MainMenu::render(){
     window->draw(this->background);
     renderButtons();
 }
+
+
 
 

@@ -34,6 +34,7 @@ private:
     Tilemap *map;
 
     //Init
+    void initVariables();
     void initWindow();
     void initResources();
 

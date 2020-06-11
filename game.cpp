@@ -8,6 +8,12 @@ void ResizeView(const sf::RenderWindow &window,sf::View &view){
 }
 
 //Init functions
+
+void Game::initVariables()
+{
+    this->window=NULL;
+    this->deltaTime=0.0f;
+}
 void Game::initWindow()
 {
     this->window=new sf::RenderWindow(sf::VideoMode(1280, 720), "MaksGra");
@@ -16,7 +22,6 @@ void Game::initWindow()
 
 void Game::initResources()
 {
-    //this->layers.push(new GState(this->window));
     this->layers.push(new MainMenu(this->window,&this->layers));
 }
 
@@ -24,14 +29,14 @@ void Game::initResources()
 //Constructor/Destructor
 Game::Game()
 {
+    this->initVariables();
     this->initWindow();
     this->initResources();
-    this->deltaTime=0.0f;
 
     //hero settings
-    sf::Texture tex;
-    tex.loadFromFile("images/paladin_neutral.png");
-    this->hero=new Player(&tex,sf::Vector2u(8,16),0.1f,200.0f);
+    //sf::Texture tex;
+    //tex.loadFromFile("images/paladin_neutral.png");
+    //this->hero=new Player(&tex,sf::Vector2u(8,16),0.1f,200.0f);
 
     //map settings
 
@@ -104,10 +109,10 @@ void Game::updateEvents()
         }
     }
 
-    hero->Update(deltaTime);
-    view->setCenter(hero->GetPosition());
+    //hero->Update(deltaTime);
+    //view->setCenter(hero->GetPosition());
 
-    Collider col=hero->GetCollider();
+    //Collider col=hero->GetCollider();
     /*for(Wall& p:walls){
         p.GetCollider().CheckCollision(col,1.0f);
     }*/
@@ -143,7 +148,7 @@ void Game::render()
         this->layers.top()->render();
     }
     //this->window->draw(*map);
-    hero->Draw(*window);
+    //hero->Draw(*window);
     /*for(Wall& p:walls){
         p.Draw((window));
     }*/
@@ -179,4 +184,5 @@ void Game::run()
         this->render();
     }
 }
+
 
