@@ -34,6 +34,9 @@ void MainMenu::initButtons()
 
 MainMenu::MainMenu(sf::RenderWindow* window,std::stack<Resources*>* layers):Resources(window,layers)
 {
+    float aspectRatio=float(window->getSize().x)/float(window->getSize().y);
+    this->view=new sf::View();
+    this->view->setSize(VIEW_HEIGHT_MENU*aspectRatio,VIEW_HEIGHT_MENU);
     this->initVariables();
     this->initBackground();
     this->initFonts();
@@ -73,12 +76,13 @@ void MainMenu::update(const float &deltaTime)
 {
     this->updateMousePos();
     this->updateInput(deltaTime);
-
+    this->view->setCenter(640,360);
     this->updateButtons();
 }
 
 void MainMenu::renderButtons(sf::RenderWindow& window)
 {
+    this->window->setView(*view);
     for(auto &it:this->buttons){
         it.second->render(window);
     }

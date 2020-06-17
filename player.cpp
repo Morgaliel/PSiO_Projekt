@@ -2,7 +2,7 @@
 
 void Player::initVariables()
 {
-
+    this->isAttacking=false;
 }
 
 void Player::initComponents()
@@ -32,9 +32,29 @@ Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textur
 
 Player::~Player(){}
 
+void Player::updateAttack()
+{
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+        this->isAttacking=true;
+        this->sprite.setOrigin(44.0f,14.0f);
+    }
+}
+
+void Player::updateAnimation(const float &deltaTime)
+{
+    if(this->isAttacking){
+        this->animation[2].play("PLAYER_ATTACK",deltaTime,this->row,true);
+        if(this->animation[2].isDone("PLAYER_ATTACK")){
+            this->isAttacking=false;
+            this->sprite.setOrigin(0.0f,0.0f);
+        }
+    }
+}
+
 
 void Player::update(const float &deltaTime)
 {
+    if(!this->isAttacking)
     this->movement->update(deltaTime);
 
     if(this->movement->isStopped()){
@@ -42,6 +62,9 @@ void Player::update(const float &deltaTime)
     }else{
         this->animation[1].play("PLAYER_RUN",deltaTime,this->row);
     }
+
+    this->updateAttack();
+    this->updateAnimation(deltaTime);
 
     this->hitbox->update();
 

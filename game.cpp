@@ -63,9 +63,9 @@ void Game::updateEvents()
         }
         if (event.type == sf::Event::MouseButtonPressed) {
                 if(event.mouseButton.button == sf::Mouse::Left) {
-                    sf::Vector2i mouse_pos = sf::Mouse::getPosition(*window);
+                    //sf::Vector2i mouse_pos = sf::Mouse::getPosition(*window);
                     sf::Vector2f mousePosView=window->mapPixelToCoords(sf::Mouse::getPosition(*window));
-                    std::cout << "Mouse clicked: " << mouse_pos.x << ", " << mouse_pos.y << std::endl;
+                    //std::cout << "Mouse clicked: " << mouse_pos.x << ", " << mouse_pos.y << std::endl;
                     std::cout << "Mouse clicked: " << mousePosView.x << ", " << mousePosView.y << std::endl;
                 }
             }

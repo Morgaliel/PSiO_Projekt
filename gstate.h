@@ -15,7 +15,7 @@ public:
     void update(const float &deltaTime);
     void render(sf::RenderWindow* window);
 private:
-    sf::View view;
+    sf::View* view;
     Player* player;
     Tilemap map;
 

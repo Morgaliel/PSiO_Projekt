@@ -2,7 +2,7 @@
 #define MAINMENU_H
 #include <gstate.h>
 #include <button.h>
-
+static const float VIEW_HEIGHT_MENU=720.0f;
 class MainMenu:public Resources
 {
 public:
@@ -15,6 +15,7 @@ public:
     void renderButtons(sf::RenderWindow& window);
     void render(sf::RenderWindow* window);
 private:
+    sf::View* view;
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
     sf::Font font;

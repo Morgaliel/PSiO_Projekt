@@ -10,14 +10,14 @@ public:
     Player(sf::Vector2f position,std::map<std::string, sf::Texture> &textures);
     ~Player();
 
-    //void Update(float deltaTime);
+    void updateAttack();
+    void updateAnimation(const float& deltaTime);
     void update(const float& deltaTime);
 
-
-    Collider GetCollider();
-
-    sf::Vector2f GetPosition();
+    //Collider GetCollider();
+    //sf::Vector2f GetPosition();
 private:
+    bool isAttacking;
 
     void initVariables();
     void initComponents();

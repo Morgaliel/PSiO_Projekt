@@ -47,7 +47,8 @@ void GState::initPlayer()
 GState::GState(sf::RenderWindow* window,std::stack<Resources*>* layers):Resources(window,layers)
 {
     float aspectRatio=float(window->getSize().x)/float(window->getSize().y);
-    this->view.setSize(VIEW_HEIGHT*aspectRatio,VIEW_HEIGHT);
+    this->view=new sf::View();
+    this->view->setSize(VIEW_HEIGHT*aspectRatio,VIEW_HEIGHT);
     this->initTextures();
     this->initPlayer();
 }
@@ -56,11 +57,12 @@ GState::~GState()
 {
     delete this->player;
     //delete this->map;
+    delete this->view;
 }
 
 void GState::updateView()
 {
-    this->view.setCenter(this->player->getPosition().x+39,this->player->getPosition().y+46);
+    this->view->setCenter(this->player->getPosition().x+39,this->player->getPosition().y+46);
 }
 
 
@@ -151,7 +153,7 @@ void GState::update(const float &deltaTime)
 
 void GState::render(sf::RenderWindow* window)
 {
-    this->window->setView(view);
+    this->window->setView(*view);
     window->draw(map);
     this->player->render(*window);
 }
