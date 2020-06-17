@@ -2,6 +2,7 @@
 
 void Character::initVariables()
 {
+    this->hitbox=nullptr;
     this->movement=nullptr;
 }
 
@@ -12,12 +13,18 @@ Character::Character()
 
 Character::~Character()
 {
+    delete this->hitbox;
     delete this->movement;
 }
 
 void Character::setTexture(sf::Texture &texture)
 {
     this->sprite.setTexture(texture);
+}
+
+void Character::createHitbox(sf::Sprite &sprite,sf::FloatRect position)
+{
+    this->hitbox=new Hitbox(sprite,position);
 }
 
 
@@ -28,7 +35,6 @@ void Character::createMove(const float speed)
 
 void Character::createAnimation(sf::Texture &textureSheet)
 {
-    //this->animation=new Animation(this->sprite,textureSheet);
     animation.emplace_back(Animation(this->sprite,textureSheet));
 }
 
@@ -39,7 +45,12 @@ void Character::setRow(unsigned int row)
 
 void Character::setPosition(const sf::Vector2f position)
 {
-        this->sprite.setPosition(position.x,position.y);
+    this->sprite.setPosition(position.x,position.y);
+}
+
+const sf::Vector2f &Character::getPosition() const
+{
+    return this->sprite.getPosition();
 }
 
 void Character::move(const sf::Vector2f direction,const float &deltaTime)
@@ -54,9 +65,13 @@ void Character::update(const float &deltaTime)
 
 }
 
-void Character::render(sf::RenderWindow* window)
+void Character::render(sf::RenderWindow& window)
 {
-    window->draw(this->sprite);
+    window.draw(this->sprite);
+
+    if(this->hitbox){
+        this->hitbox->render(window);
+    }
 }
 
 

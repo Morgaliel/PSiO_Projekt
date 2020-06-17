@@ -10,6 +10,7 @@ SOURCES += \
         collider.cpp \
         game.cpp \
         gstate.cpp \
+        hitbox.cpp \
         main.cpp \
         mainmenu.cpp \
         move.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     collider.h \
     game.h \
     gstate.h \
+    hitbox.h \
     mainmenu.h \
     move.h \
     resources.h \

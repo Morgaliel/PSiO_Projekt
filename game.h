@@ -3,7 +3,6 @@
 #include <mainmenu.h>
 
 
-static const float VIEW_HEIGHT=600.0f;
 
 class Game
 {
@@ -22,7 +21,7 @@ public:
 private:
     //Variables
     sf::RenderWindow *window;
-    sf::View *view;
+    //sf::View *view;
     sf::Event event;
 
     sf::Clock theClock;

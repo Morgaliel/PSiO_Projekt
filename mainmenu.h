@@ -12,8 +12,8 @@ public:
     void updateInput(const float &deltaTime);
     void updateButtons();
     void update(const float &deltaTime);
-    void renderButtons();
-    void render();
+    void renderButtons(sf::RenderWindow& window);
+    void render(sf::RenderWindow* window);
 private:
     sf::Texture backgroundTexture;
     sf::RectangleShape background;

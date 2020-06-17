@@ -49,10 +49,10 @@ void Button::update(const sf::Vector2f mousePos)
 
 }
 
-void Button::render(sf::RenderWindow* window)
+void Button::render(sf::RenderWindow& window)
 {
-    window->draw(this->jenson);
-    window->draw(this->text);
+    window.draw(this->jenson);
+    window.draw(this->text);
 }
 
 bool Button::isPressed() const

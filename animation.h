@@ -49,7 +49,7 @@ private:
             this->sprite.setTextureRect(this->uvRect);
         };
         void reset(){
-            totalTime=0.0f;
+            totalTime=0.0f; //=switchTime;
             currentImage.x=0;
         }
     };

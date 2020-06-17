@@ -17,12 +17,16 @@ Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textur
 
     this->setPosition(position);
 
+    this->createHitbox(this->sprite,sf::FloatRect(15,15,40.0f,70.0f));
     this->createMove(200.0f);
     this->createAnimation(textures["PLAYER_NEUTRAL"]);
     this->createAnimation(textures["PLAYER_RUN"]);
+    this->createAnimation(textures["PLAYER_ATTACK"]);
 
+    //creating animation (I FORGOT TWICE): load texture, createAnimation, addAnimation
     this->animation[0].addAnimation("PLAYER_NEUTRAL",sf::Vector2u(8,16),0.1f);
     this->animation[1].addAnimation("PLAYER_RUN",sf::Vector2u(8,16),0.1f);
+    this->animation[2].addAnimation("PLAYER_ATTACK",sf::Vector2u(15,16),0.05f);
 
 }
 
@@ -38,6 +42,8 @@ void Player::update(const float &deltaTime)
     }else{
         this->animation[1].play("PLAYER_RUN",deltaTime,this->row);
     }
+
+    this->hitbox->update();
 
 }
 

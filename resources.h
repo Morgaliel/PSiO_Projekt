@@ -15,10 +15,12 @@ public:
     virtual void updateMousePos();
     virtual void updateInput(const float& deltaTime)=0;
     virtual void update(const float& deltaTime)=0;
-    virtual void render()=0;
+    virtual void render(sf::RenderWindow* window)=0;
 protected:
     std::stack<Resources*>* layers;
     std::map<std::string, sf::Texture> textures;
+    std::map<std::string, sf::Texture> mapTextures;
+    std::map<std::string, std::vector<int>> mapLayout;
     sf::RenderWindow* window;
     bool end;
 

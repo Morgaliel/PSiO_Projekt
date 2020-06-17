@@ -1,11 +1,6 @@
 #include "game.h"
 
-//Static functions
-void ResizeView(const sf::RenderWindow &window,sf::View &view){
-    float aspectRatio=float(window.getSize().x)/float(window.getSize().y);
 
-    view.setSize(VIEW_HEIGHT*aspectRatio,VIEW_HEIGHT);
-}
 
 //Init functions
 
@@ -17,7 +12,6 @@ void Game::initVariables()
 void Game::initWindow()
 {
     this->window=new sf::RenderWindow(sf::VideoMode(1280, 720), "MaksGra");
-    this->view=new sf::View(sf::Vector2f(0.0f,0.0f),sf::Vector2f(800.0f,VIEW_HEIGHT));
 }
 
 void Game::initResources()
@@ -33,43 +27,12 @@ Game::Game()
     this->initWindow();
     this->initResources();
 
-    //hero settings
-    //sf::Texture tex;
-    //tex.loadFromFile("images/paladin_neutral.png");
-    //this->hero=new Player(&tex,sf::Vector2u(8,16),0.1f,200.0f);
-
-    //map settings
-
-    /*const int level_1_ground[] =
-        {
-            1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-            0, 1, 1, 1, 1, 1, 1, 141, 140, 0, 0, 2, 0, 0, 0, 0,
-            1, 1, 0, 0, 0, 0, 0, 144, 143, 142, 3, 3, 3, 3, 3, 3,
-            0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
-            0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
-            0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
-            2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
-            0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
-            1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-            0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 2, 0, 0, 0, 0,
-            1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 3, 3, 3, 3, 3, 3,
-            0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
-            0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
-            0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
-            2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
-            0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
-        };
-    sf::Texture tileset;
-    tileset.loadFromFile("images/swamp_ground.png");
-    if(!map->load("images/swamp_ground.png", level_1_ground, 16, 16)){
-        std::cerr<<"Texture not loaded";
-    }*/
 }
 
 Game::~Game()
 {
     delete this->window;
-
+    //delete this->view;
     while(!this->layers.empty()){
         delete this->layers.top();
         this->layers.pop();
@@ -101,16 +64,14 @@ void Game::updateEvents()
         if (event.type == sf::Event::MouseButtonPressed) {
                 if(event.mouseButton.button == sf::Mouse::Left) {
                     sf::Vector2i mouse_pos = sf::Mouse::getPosition(*window);
+                    sf::Vector2f mousePosView=window->mapPixelToCoords(sf::Mouse::getPosition(*window));
                     std::cout << "Mouse clicked: " << mouse_pos.x << ", " << mouse_pos.y << std::endl;
+                    std::cout << "Mouse clicked: " << mousePosView.x << ", " << mousePosView.y << std::endl;
                 }
             }
-        if(event.type == sf::Event::Resized){
-            ResizeView(*window,*view);
-        }
     }
 
     //hero->Update(deltaTime);
-    //view->setCenter(hero->GetPosition());
 
     //Collider col=hero->GetCollider();
     /*for(Wall& p:walls){
@@ -145,9 +106,8 @@ void Game::render()
 
     //render
     if(!this->layers.empty()){
-        this->layers.top()->render();
+        this->layers.top()->render(window);
     }
-    //this->window->draw(*map);
     //hero->Draw(*window);
     /*for(Wall& p:walls){
         p.Draw((window));

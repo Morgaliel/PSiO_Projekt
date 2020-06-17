@@ -20,7 +20,7 @@ public:
     ~Button();
 
     void update(const sf::Vector2f mousePos);
-    void render(sf::RenderWindow* window);
+    void render(sf::RenderWindow& window);
 
 
     bool isPressed() const;
