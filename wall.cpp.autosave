@@ -18,11 +18,7 @@ void Wall::Draw(sf::RenderWindow &window){
     window.draw(body);
 }
 
-void Wall::getPosition()
-{
-    sf::FloatRect bounds=body.getGlobalBounds();
-    std::cout<<bounds.top<<"     "<<bounds.left<<"     "<<bounds.width<<std::endl;
-}
+
 
 Collider Wall::GetCollider() {return Collider(body);}
 

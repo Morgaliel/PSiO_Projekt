@@ -17,7 +17,7 @@ public:
 private:
     sf::View* view;
     Player* player;
-    Tilemap map;
+    std::map<std::string,Tilemap*> maps;
 
     void initTextures();
     void initPlayer();

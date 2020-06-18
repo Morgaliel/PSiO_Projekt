@@ -219,7 +219,6 @@ void GState::render(sf::RenderWindow* window)
     textureWall.setRepeated(true);
     std::vector<Wall> walls;
     walls.push_back(Wall(&textureWall,sf::Vector2f(250.0,100.0),sf::Vector2f(876.0f,536.0f)));
-    walls[0].getPosition();
     this->window->setView(*view);
     window->draw(*maps["LEVEL_1"]);
     this->player->hitbox->getGlobalPosition();

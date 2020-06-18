@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "animation.h"
-#include "collider.h"
+#include <animation.h>
+#include <collider.h>
 #include <character.h>
 
 class Player:public Character

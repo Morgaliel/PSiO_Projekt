@@ -75,7 +75,7 @@ void Game::updateEvents()
 
     //Collider col=hero->GetCollider();
     /*for(Wall& p:walls){
-        p.GetCollider().CheckCollision(col,1.0f);
+        p.GetCollider().CheckCollision(col);
     }*/
 
 }

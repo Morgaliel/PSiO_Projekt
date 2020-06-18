@@ -1,13 +1,12 @@
 #ifndef TILEMAP_H
 #define TILEMAP_H
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
 
 
 class Tilemap : public sf::Drawable, public sf::Transformable
 {
 public:
-    bool load(sf::Texture& texture, std::vector<int> tiles, unsigned int width, unsigned int height);
+    Tilemap();
+    bool load(sf::Texture& texture, std::vector<int> tiles, unsigned int width, unsigned int height,sf::Vector2i tileSize);
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     sf::VertexArray m_vertices;

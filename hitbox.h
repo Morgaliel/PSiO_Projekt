@@ -1,13 +1,5 @@
 #ifndef HITBOX_H
 #define HITBOX_H
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 
 class Hitbox
 {
@@ -19,7 +11,9 @@ public:
 
     void update();
     void render(sf::RenderWindow& window);
+    void getGlobalPosition();
 
+    sf::FloatRect globalPosition;
 private:
     sf::RectangleShape hitbox;
     sf::Sprite& sprite;

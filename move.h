@@ -1,21 +1,7 @@
 #ifndef MOVE_H
 #define MOVE_H
-#include <iostream>
-#include <ctime>
-#include <cmath>
-#include <cstdlib>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <stack>
-#include <map>
 #include <wall.h>
 #include <tilemap.h>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 
 class Move
 {

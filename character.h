@@ -1,4 +1,3 @@
-
 #ifndef CHARACTER_H
 #define CHARACTER_H
 #include <move.h>
@@ -24,12 +23,12 @@ public:
 
     virtual void update(const float& deltaTime);
     virtual void render(sf::RenderWindow& window);
-
+    Hitbox* collision;
+    Hitbox* hitbox;
 protected:
     sf::Sprite sprite;
     Move* movement;
     std::vector<Animation> animation;
-    Hitbox* hitbox;
     unsigned int row;
 
 private:

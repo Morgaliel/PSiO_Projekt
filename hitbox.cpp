@@ -28,3 +28,8 @@ void Hitbox::render(sf::RenderWindow& window)
 {
     window.draw(this->hitbox);
 }
+
+void Hitbox::getGlobalPosition()
+{
+    globalPosition=hitbox.getGlobalBounds();
+}

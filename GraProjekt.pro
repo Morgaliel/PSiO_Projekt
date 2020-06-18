@@ -2,6 +2,10 @@ TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
+CONFIG   += cmdline precompile_header
+
+PRECOMPILED_HEADER  = includes.h
+
 
 SOURCES += \
         animation.cpp \

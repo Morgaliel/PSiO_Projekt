@@ -1,15 +1,16 @@
 #include "tilemap.h"
 
-
-bool Tilemap::load(sf::Texture& texture, std::vector<int> tiles, unsigned int width, unsigned int height)
+Tilemap::Tilemap()
 {
-    tileSize.x=160;
-    tileSize.y=80;
-    m_tileset=texture;
 
+}
+
+bool Tilemap::load(sf::Texture& texture, std::vector<int> tiles, unsigned int width, unsigned int height,sf::Vector2i tileSize)
+{
+    m_tileset=texture;
     m_vertices.setPrimitiveType(sf::Quads);
     m_vertices.resize(width * height * 4);
-    sf::Vector2i vOrigin(8,1);
+    sf::Vector2i vOrigin(8,5);
 
     for (unsigned int i = 0; i < width; ++i)
         for (unsigned int j = 0; j < height; ++j)
@@ -21,10 +22,23 @@ bool Tilemap::load(sf::Texture& texture, std::vector<int> tiles, unsigned int wi
 
             sf::Vertex* quad = &m_vertices[(i + j * width) * 4];
 
-            quad[0].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, (vOrigin.y*tileSize.y)+j * tileSize.y+i*tileSize.y/2-j*tileSize.y/2);
-            quad[1].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, (vOrigin.y*tileSize.y)+j * tileSize.y+i*tileSize.y/2-j*tileSize.y/2);
-            quad[2].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, (vOrigin.y*tileSize.y)+(j + 1) * tileSize.y+i*tileSize.y/2-j*tileSize.y/2);
-            quad[3].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, (vOrigin.y*tileSize.y)+(j + 1) * tileSize.y+i*tileSize.y/2-j*tileSize.y/2);
+            if(tileSize.y==320){
+                quad[0].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/4)-240)+j * tileSize.y+i*(tileSize.y/2-120)-j*(tileSize.y/2+120));
+                quad[1].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/4)-240)+j * tileSize.y+i*(tileSize.y/2-120)-j*(tileSize.y/2+120));
+                quad[2].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/4)-240)+(j + 1) * tileSize.y+i*(tileSize.y/2-120)-j*(tileSize.y/2+120));
+                quad[3].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/4)-240)+(j + 1) * tileSize.y+i*(tileSize.y/2-120)-j*(tileSize.y/2+120));
+            }else if(tileSize.y==385){
+                quad[0].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/4.8125)-288.75)+j * tileSize.y+i*(tileSize.y/2-150)-j*(tileSize.y/2+150));
+                quad[1].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/4.8125)-288.75)+j * tileSize.y+i*(tileSize.y/2-150)-j*(tileSize.y/2+150));
+                quad[2].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/4.8125)-288.75)+(j + 1) * tileSize.y+i*(tileSize.y/2-150)-j*(tileSize.y/2+150));
+                quad[3].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/4.8125)-288.75)+(j + 1) * tileSize.y+i*(tileSize.y/2-150)-j*(tileSize.y/2+150));
+            }
+            else{
+                quad[0].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, (vOrigin.y*tileSize.y)+j * tileSize.y+i*tileSize.y/2-j*tileSize.y/2);
+                quad[1].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, (vOrigin.y*tileSize.y)+j * tileSize.y+i*tileSize.y/2-j*tileSize.y/2);
+                quad[2].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, (vOrigin.y*tileSize.y)+(j + 1) * tileSize.y+i*tileSize.y/2-j*tileSize.y/2);
+                quad[3].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, (vOrigin.y*tileSize.y)+(j + 1) * tileSize.y+i*tileSize.y/2-j*tileSize.y/2);
+            }
 
             quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
             quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
@@ -34,6 +48,7 @@ bool Tilemap::load(sf::Texture& texture, std::vector<int> tiles, unsigned int wi
 
     return true;
 }
+
 
 void Tilemap::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {

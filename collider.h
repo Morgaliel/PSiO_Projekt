@@ -6,16 +6,16 @@
 
 class Collider{
 public:
-    Collider(sf::Sprite& body);
+    Collider(sf::RectangleShape& body);
     ~Collider();;
 
     void Move(float dx, float dy);
-    bool CheckCollision(Collider& other, float push);
+    bool CheckCollision(Collider& other);
 
     sf::Vector2f GetPosition();
     sf::Vector2f GetHalfSize();
 private:
-    sf::Sprite& body;
+    sf::RectangleShape& body;
 };
 
 #endif // COLLIDER_H
