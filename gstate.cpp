@@ -1,5 +1,5 @@
 #include "gstate.h"
-
+#include "collider.h"
 
 
 void GState::initTextures()
@@ -81,7 +81,7 @@ void GState::initTextures()
 
 void GState::initPlayer()
 {
-    this->player=new Player(sf::Vector2f(1000.0f,500.0f), textures);
+    this->player=new Player(sf::Vector2f(1400.0f,700.0f), textures);
 
 
     maps["LEVEL_1"]=new Tilemap();
@@ -102,12 +102,30 @@ void GState::initPlayer()
 }
 
 GState::GState(sf::RenderWindow* window,std::stack<Resources*>* layers):Resources(window,layers)
+
 {
     float aspectRatio=float(window->getSize().x)/float(window->getSize().y);
     this->view=new sf::View();
     this->view->setSize(VIEW_HEIGHT*aspectRatio,VIEW_HEIGHT);
     this->initTextures();
     this->initPlayer();
+    if(!textureWall.loadFromFile("images/wall.png")) {
+        std::cerr << "Could not load wall" << std::endl;
+    }
+    textureWall.setRepeated(true);
+    walls["0"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(876.0f,570.0f),334.0f);
+    walls["1"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(1820.0f,570.0f),207.0f);
+    walls["2"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(2060.0f,1060.0f),334.0f);
+    walls["3"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(1040.0f,1040.0f),207.0f);
+    walls["4"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1235.0f,485.0f),334.0f);
+    walls["5"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1435.0f,481.0f),334.0f);
+    walls["6"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1130.0f,490.0f),0.0f);
+    walls["7"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1270.0f,520.0f),0.0f);
+    walls["8"]=new Wall(&textureWall,sf::Vector2f(150.0,100.0),sf::Vector2f(1500.0f,480.0f),207.0f);
+    walls["9"]=new Wall(&textureWall,sf::Vector2f(150.0,100.0),sf::Vector2f(1615.0f,509.0f),0.0f);
+    walls["10"]=new Wall(&textureWall,sf::Vector2f(100.0,100.0),sf::Vector2f(1450.0f,490.0f),0.0f);
+
+
 }
 
 GState::~GState()
@@ -115,6 +133,9 @@ GState::~GState()
     delete this->player;
     delete this->view;
     for(auto &it:maps){
+        delete it.second;
+    }
+    for(auto &it:walls){
         delete it.second;
     }
 }
@@ -187,14 +208,6 @@ void GState::updateInput(const float &deltaTime)
     }
     }*/
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-        this->player->move(sf::Vector2f(0.0f,0.0f),deltaTime);
-            /*body.setTexture(&current);
-            body.setScale(1.7,1.4);
-            imageCount.x=15;
-            deltaTime*=2;*/
-        }
-
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
         this->endLayer();
     }
@@ -205,25 +218,23 @@ void GState::update(const float &deltaTime)
 
     this->updateMousePos();
     this->updateInput(deltaTime);
+    for(auto &it:walls){
+        collision::areColliding(it.second,player->hitbox,player,deltaTime,it.second->getRotation(),2);
+    }
     this->updateView();
     this->player->update(deltaTime);
+//this->wall->getGlobalBounds().intersects(player->hitbox->getGlobalBounds());
 
 }
 
 void GState::render(sf::RenderWindow* window)
 {
-    sf::Texture textureWall;
-    if(!textureWall.loadFromFile("images/wall.png")) {
-        std::cerr << "Could not load wall" << std::endl;
-    }
-    textureWall.setRepeated(true);
-    std::vector<Wall> walls;
-    walls.push_back(Wall(&textureWall,sf::Vector2f(250.0,100.0),sf::Vector2f(876.0f,536.0f)));
-    walls[0].getPosition();
+
+
+    //walls.push_back(Wall(textureWall,sf::Vector2f(250.0,100.0),sf::Vector2f(876.0f,536.0f)));
     this->window->setView(*view);
     window->draw(*maps["LEVEL_1"]);
-    this->player->hitbox->getGlobalPosition();
-    if(this->player->hitbox->globalPosition.top<400){
+    if(this->player->hitbox->getGlobalBounds().top<400){
         this->player->render(*window);
         window->draw(*maps["LEVEL_1_WALL"]);
         window->draw(*maps["LEVEL_1_WALL_CORNER"]);
@@ -235,9 +246,14 @@ void GState::render(sf::RenderWindow* window)
         this->player->render(*window);
     }
 
-    for(Wall& p:walls){
-            p.Draw((*window));
-        }
+    /*for(Wall& p:*walls){
+            p.draw(*window);
+        }*/
+    //wall.Draw(*window);
+    /*for(auto &it:walls){
+        window->draw(*it.second);
+    }*/
+
     window->draw(*maps["LEVEL_1_TREES"]);
     window->draw(*maps["LEVEL_1_WALL2"]);
 

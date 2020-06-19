@@ -1,7 +1,7 @@
 #ifndef HITBOX_H
 #define HITBOX_H
 
-class Hitbox
+class Hitbox:public sf::RectangleShape
 {
 public:
     Hitbox(sf::Sprite& sprite, sf::FloatRect position);
@@ -15,7 +15,6 @@ public:
 
     sf::FloatRect globalPosition;
 private:
-    sf::RectangleShape hitbox;
     sf::Sprite& sprite;
     sf::FloatRect position;
 };

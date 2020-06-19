@@ -18,6 +18,8 @@ private:
     sf::View* view;
     Player* player;
     std::map<std::string,Tilemap*> maps;
+    sf::Texture textureWall;
+    std::map<std::string,Wall*>walls;
 
     void initTextures();
     void initPlayer();

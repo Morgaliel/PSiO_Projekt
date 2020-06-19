@@ -69,6 +69,7 @@ void Game::updateEvents()
                     std::cout << "Mouse clicked: " << mousePosView.x << ", " << mousePosView.y << std::endl;
                 }
             }
+
     }
 
     //hero->Update(deltaTime);
@@ -108,10 +109,6 @@ void Game::render()
     if(!this->layers.empty()){
         this->layers.top()->render(window);
     }
-    //hero->Draw(*window);
-    /*for(Wall& p:walls){
-        p.Draw((window));
-    }*/
 
     // End the current frame
     this->window->display();

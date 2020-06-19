@@ -1,12 +1,12 @@
 #include "wall.h"
-Wall::Wall(sf::Texture *texture, sf::Vector2f size, sf::Vector2f position){
-    body.setSize(size);
-    body.setPosition(position);
-    body.setOrigin(size.x/2,size.y/2);
-    body.setTexture(texture);
-    sf::IntRect bound=static_cast<sf::IntRect>(body.getGlobalBounds());
-    body.setTextureRect(bound);
-    body.rotate(-26.0f);
+Wall::Wall(sf::Texture *texture, sf::Vector2f size, sf::Vector2f position, float rotation){
+    setSize(size);
+    setPosition(position);
+    setOrigin(size.x/2,size.y/2);
+    setTexture(texture);
+    sf::IntRect bound=static_cast<sf::IntRect>(getGlobalBounds());
+    setTextureRect(bound);
+    rotate(rotation);
 }
 
 Wall::~Wall()
@@ -14,17 +14,8 @@ Wall::~Wall()
 
 }
 
-void Wall::Draw(sf::RenderWindow &window){
-    window.draw(body);
-}
 
-void Wall::getPosition()
-{
-    sf::FloatRect bounds=body.getGlobalBounds();
-    std::cout<<bounds.top<<"     "<<bounds.left<<"     "<<bounds.width<<std::endl;
-}
-
-Collider Wall::GetCollider() {return Collider(body);}
+//Collider Wall::GetCollider() {return Collider(body);}
 
 //walls
 /*sf::Texture textureWall;

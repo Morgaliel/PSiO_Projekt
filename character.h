@@ -5,7 +5,7 @@
 #include <hitbox.h>
 
 
-class Character
+class Character:public sf::Sprite
 {
 public:
     Character();

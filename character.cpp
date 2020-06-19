@@ -70,7 +70,7 @@ void Character::render(sf::RenderWindow& window)
     window.draw(this->sprite);
 
     if(this->hitbox){
-        this->hitbox->render(window);
+        window.draw(*this->hitbox);
     }
 }
 

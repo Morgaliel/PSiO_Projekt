@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <ctime>
 #include <cstdlib>
+#include <array>
 
 
 #include <SFML/System.hpp>
