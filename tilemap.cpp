@@ -5,12 +5,12 @@ Tilemap::Tilemap()
 
 }
 
-bool Tilemap::load(sf::Texture& texture, std::vector<int> tiles, unsigned int width, unsigned int height,sf::Vector2i tileSize)
+bool Tilemap::load(sf::Texture& texture, std::vector<int> tiles, unsigned int width, unsigned int height,sf::Vector2i tileSize, sf::Vector2i vOrigin)
 {
     m_tileset=texture;
     m_vertices.setPrimitiveType(sf::Quads);
     m_vertices.resize(width * height * 4);
-    sf::Vector2i vOrigin(8,5);
+
 
     for (unsigned int i = 0; i < width; ++i)
         for (unsigned int j = 0; j < height; ++j)
@@ -33,7 +33,12 @@ bool Tilemap::load(sf::Texture& texture, std::vector<int> tiles, unsigned int wi
                 quad[2].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/4.8125)-288.75)+(j + 1) * tileSize.y+i*(tileSize.y/2-150)-j*(tileSize.y/2+150));
                 quad[3].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/4.8125)-288.75)+(j + 1) * tileSize.y+i*(tileSize.y/2-150)-j*(tileSize.y/2+150));
             }
-            else{
+            else if(tileSize.y==640){
+                quad[0].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/8)-560)+j * tileSize.y+i*(tileSize.y/4-120)-j*(tileSize.y/4+440));
+                quad[1].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/8)-560)+j * tileSize.y+i*(tileSize.y/4-120)-j*(tileSize.y/4+440));
+                quad[2].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/8)-560)+(j + 1) * tileSize.y+i*(tileSize.y/4-120)-j*(tileSize.y/4+440));
+                quad[3].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, ((vOrigin.y*tileSize.y/8)-560)+(j + 1) * tileSize.y+i*(tileSize.y/4-120)-j*(tileSize.y/4+440));
+            }else{
                 quad[0].position = sf::Vector2f((vOrigin.x*tileSize.x)+i * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, (vOrigin.y*tileSize.y)+j * tileSize.y+i*tileSize.y/2-j*tileSize.y/2);
                 quad[1].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, (vOrigin.y*tileSize.y)+j * tileSize.y+i*tileSize.y/2-j*tileSize.y/2);
                 quad[2].position = sf::Vector2f((vOrigin.x*tileSize.x)+(i + 1) * tileSize.x-i*tileSize.x/2-j*tileSize.x/2, (vOrigin.y*tileSize.y)+(j + 1) * tileSize.y+i*tileSize.y/2-j*tileSize.y/2);

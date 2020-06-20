@@ -23,9 +23,15 @@ void GState::initTextures()
     if(!mapTextures["LEVEL_1_TREES"].loadFromFile("images/trees.png")){
         std::cerr<<"Texture not loaded";
     }
+    if(!mapTextures["LEVEL_1_ENTRY"].loadFromFile("images/entry.png")){
+        std::cerr<<"Texture not loaded";
+    }
 
     mapLayout["LEVEL_1"]={
-            7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+            183, 183, 183, 184, 184, 184, 184, 184, 184, 184, 183, 183, 183,
+            183, 183, 183, 184, 184, 186, 185, 184, 184, 184, 183, 183, 183,
+            7, 7, 7, 7, 99, 189, 188, 187, 97, 7, 7, 7, 7,
+            7, 7, 7, 7, 143, 52, 52, 52, 113, 7, 7, 7, 7,
             4, 7, 18, 18, 7, 4, 7, 4, 4, 4, 7, 4, 7,
             7, 7, 17, 14, 49, 7, 182, 181, 180, 7, 7, 4, 7,
             4, 7, 8, 52, 9, 4, 179, 178, 177, 4, 7, 4, 7,
@@ -38,6 +44,7 @@ void GState::initTextures()
 };
     mapLayout["LEVEL_1_OBJ"]={
             35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
             35, 35, 55, 54, 35, 35, 35, 35, 35, 35, 35, 35, 35,
             35, 35, 53, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
             35, 51, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
@@ -49,7 +56,8 @@ void GState::initTextures()
             35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
 };
     mapLayout["LEVEL_1_WALL"]={
-            7, 5, 4, 3, 35, 35, 14, 13, 12, 35, 35, 35, 35,
+            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+            7, 5, 4, 3, 35, 35, 35, 35, 35, 35, 35, 35, 35,
             2, 35, 56, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
             1, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
             1, 52, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
@@ -62,10 +70,15 @@ void GState::initTextures()
             35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 1,
             35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 1,
             35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 1,
+            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 1,
             35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 0,
 };
-    mapLayout["LEVEL_1_WALL_CORNER"]={6, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 6};
+    mapLayout["LEVEL_1_WALL_CORNER"]={
+            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+            6, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 6
+};
     mapLayout["LEVEL_1_TREES"]={
+            120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120,
             120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120,
             120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120,
             120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120,
@@ -77,28 +90,40 @@ void GState::initTextures()
             100, 0, 108, 36, 19, 9, 28, 72, 46, 90, 64, 120, 81,
             1, 109, 37, 120, 10, 120, 73, 120, 91, 120, 120, 82, 120,
 };
+    mapLayout["LEVEL_1_ENTRY"]={
+            20, 19, 18, 17, 16, 15, 55, 55, 12, 11, 10, 9, 8,
+            55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55,
+            55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55,
+};
+    mapLayout["LEVEL_1_ENTRY2"]={
+            55, 55, 55, 55, 55, 55, 14, 13, 55, 55, 55, 55, 55,
+};
 }
 
 void GState::initPlayer()
 {
-    this->player=new Player(sf::Vector2f(1400.0f,700.0f), textures);
+    this->player=new Player(sf::Vector2f(1400.0f,1020.0f), textures);
 
 
     maps["LEVEL_1"]=new Tilemap();
-    maps["LEVEL_1"]->load(mapTextures["LEVEL_1"],mapLayout["LEVEL_1"],13,10,sf::Vector2i(160,80));
+    maps["LEVEL_1"]->load(mapTextures["LEVEL_1"],mapLayout["LEVEL_1"],13,13,sf::Vector2i(160,80), sf::Vector2i (9,7));
 
     maps["LEVEL_1_OBJ"]=new Tilemap();
-    maps["LEVEL_1_OBJ"]->load(mapTextures["LEVEL_1_OBJ"],mapLayout["LEVEL_1_OBJ"],13,10,sf::Vector2i(160,320));
+    maps["LEVEL_1_OBJ"]->load(mapTextures["LEVEL_1_OBJ"],mapLayout["LEVEL_1_OBJ"],13,11,sf::Vector2i(160,320), sf::Vector2i (8,8));
 
     maps["LEVEL_1_WALL"]=new Tilemap();
-    maps["LEVEL_1_WALL"]->load(mapTextures["LEVEL_1_OBJ"],mapLayout["LEVEL_1_WALL"],13,6,sf::Vector2i(160,320));
+    maps["LEVEL_1_WALL"]->load(mapTextures["LEVEL_1_OBJ"],mapLayout["LEVEL_1_WALL"],13,7,sf::Vector2i(160,320), sf::Vector2i (8,8));
     maps["LEVEL_1_WALL2"]=new Tilemap();
-    maps["LEVEL_1_WALL2"]->load(mapTextures["LEVEL_1_OBJ"],mapLayout["LEVEL_1_WALL2"],13,6,sf::Vector2i(160,320));
+    maps["LEVEL_1_WALL2"]->load(mapTextures["LEVEL_1_OBJ"],mapLayout["LEVEL_1_WALL2"],13,7,sf::Vector2i(160,320), sf::Vector2i (8,8));
 
     maps["LEVEL_1_WALL_CORNER"]=new Tilemap();
-    maps["LEVEL_1_WALL_CORNER"]->load(mapTextures["LEVEL_1_OBJ"],mapLayout["LEVEL_1_WALL_CORNER"],13,1,sf::Vector2i(160,320));
+    maps["LEVEL_1_WALL_CORNER"]->load(mapTextures["LEVEL_1_OBJ"],mapLayout["LEVEL_1_WALL_CORNER"],13,2,sf::Vector2i(160,320), sf::Vector2i (8,8));
     maps["LEVEL_1_TREES"]=new Tilemap();
-    maps["LEVEL_1_TREES"]->load(mapTextures["LEVEL_1_TREES"],mapLayout["LEVEL_1_TREES"],13,10,sf::Vector2i(160,385));
+    maps["LEVEL_1_TREES"]->load(mapTextures["LEVEL_1_TREES"],mapLayout["LEVEL_1_TREES"],13,11,sf::Vector2i(160,385), sf::Vector2i (8,8));
+    maps["LEVEL_1_ENTRY"]=new Tilemap();
+    maps["LEVEL_1_ENTRY"]->load(mapTextures["LEVEL_1_ENTRY"],mapLayout["LEVEL_1_ENTRY"],13,3,sf::Vector2i(160,640), sf::Vector2i (8,8));
+    maps["LEVEL_1_ENTRY2"]=new Tilemap();
+    maps["LEVEL_1_ENTRY2"]->load(mapTextures["LEVEL_1_ENTRY"],mapLayout["LEVEL_1_ENTRY2"],13,1,sf::Vector2i(160,640), sf::Vector2i (8,8));
 }
 
 GState::GState(sf::RenderWindow* window,std::stack<Resources*>* layers):Resources(window,layers)
@@ -113,17 +138,19 @@ GState::GState(sf::RenderWindow* window,std::stack<Resources*>* layers):Resource
         std::cerr << "Could not load wall" << std::endl;
     }
     textureWall.setRepeated(true);
-    walls["0"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(876.0f,570.0f),334.0f);
-    walls["1"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(1820.0f,570.0f),207.0f);
-    walls["2"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(2060.0f,1060.0f),334.0f);
-    walls["3"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(1040.0f,1040.0f),207.0f);
-    walls["4"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1235.0f,485.0f),334.0f);
-    walls["5"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1435.0f,481.0f),334.0f);
-    walls["6"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1130.0f,490.0f),0.0f);
-    walls["7"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1270.0f,520.0f),0.0f);
-    walls["8"]=new Wall(&textureWall,sf::Vector2f(150.0,100.0),sf::Vector2f(1500.0f,480.0f),207.0f);
-    walls["9"]=new Wall(&textureWall,sf::Vector2f(150.0,100.0),sf::Vector2f(1615.0f,509.0f),0.0f);
-    walls["10"]=new Wall(&textureWall,sf::Vector2f(100.0,100.0),sf::Vector2f(1450.0f,490.0f),0.0f);
+    walls["0"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(876.0f-80.0f,890.0f),334.0f);
+    walls["1"]=new Wall(&textureWall,sf::Vector2f(380.0,100.0),sf::Vector2f(1440.0f,690.0f),207.0f);
+    walls["11"]=new Wall(&textureWall,sf::Vector2f(900.0,100.0),sf::Vector2f(1440.0f,600.0f),207.0f);
+    walls["12"]=new Wall(&textureWall,sf::Vector2f(460.0,100.0),sf::Vector2f(2130.0f,950.0f),207.0f);
+    walls["2"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(2060.0f-80.0f,1340.0f),334.0f);
+    walls["3"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(1040.0f-80.0f,1280.0f),207.0f);
+    walls["4"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1235.0f-80.0f,805.0f),334.0f);
+    walls["5"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1435.0f-80.0f,801.0f),334.0f);
+    walls["6"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1130.0f-80.0f,810.0f),0.0f);
+    walls["7"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1270.0f-80.0f,840.0f),0.0f);
+    walls["8"]=new Wall(&textureWall,sf::Vector2f(150.0,100.0),sf::Vector2f(1500.0f-80.0f,800.0f),207.0f);
+    walls["9"]=new Wall(&textureWall,sf::Vector2f(900.0,100.0),sf::Vector2f(1600.0f-80.0f,770.0f),0.0f);
+    walls["10"]=new Wall(&textureWall,sf::Vector2f(100.0,100.0),sf::Vector2f(1450.0f-80.0f,810.0f),0.0f);
 
 
 }
@@ -234,17 +261,20 @@ void GState::render(sf::RenderWindow* window)
     //walls.push_back(Wall(textureWall,sf::Vector2f(250.0,100.0),sf::Vector2f(876.0f,536.0f)));
     this->window->setView(*view);
     window->draw(*maps["LEVEL_1"]);
-    if(this->player->hitbox->getGlobalBounds().top<400){
+    window->draw(*maps["LEVEL_1_ENTRY"]);
+    window->draw(*maps["LEVEL_1_WALL"]);
+    window->draw(*maps["LEVEL_1_WALL_CORNER"]);
+    window->draw(*maps["LEVEL_1_OBJ"]);
+    if(this->player->hitbox->getGlobalBounds().top<878){
         this->player->render(*window);
-        window->draw(*maps["LEVEL_1_WALL"]);
-        window->draw(*maps["LEVEL_1_WALL_CORNER"]);
-        window->draw(*maps["LEVEL_1_OBJ"]);
+        window->draw(*maps["LEVEL_1_ENTRY2"]);
     }else{
-        window->draw(*maps["LEVEL_1_WALL"]);
-        window->draw(*maps["LEVEL_1_WALL_CORNER"]);
-        window->draw(*maps["LEVEL_1_OBJ"]);
+        window->draw(*maps["LEVEL_1_ENTRY2"]);
         this->player->render(*window);
     }
+
+    window->draw(*maps["LEVEL_1_TREES"]);
+    window->draw(*maps["LEVEL_1_WALL2"]);
 
     /*for(Wall& p:*walls){
             p.draw(*window);
@@ -254,8 +284,6 @@ void GState::render(sf::RenderWindow* window)
         window->draw(*it.second);
     }*/
 
-    window->draw(*maps["LEVEL_1_TREES"]);
-    window->draw(*maps["LEVEL_1_WALL2"]);
 
 }
 
