@@ -4,13 +4,27 @@
 
 void GState::initTextures()
 {
-    if(!textures["PLAYER_NEUTRAL"].loadFromFile("images/paladin_neutral.png")){
+    if(!music.openFromFile("sound/Tristram.flac")){
+        std::cerr<<"Music not loaded";
+    }
+
+    if(!texturesPlayer["PLAYER_NEUTRAL"].loadFromFile("images/paladin_neutral.png")){
         std::cout<<"player neutral texture rip"<<std::endl;
     }
-    if(!textures["PLAYER_RUN"].loadFromFile("images/paladin_run.png")){
+    if(!texturesPlayer["PLAYER_RUN"].loadFromFile("images/paladin_run.png")){
         std::cout<<"player run texture rip"<<std::endl;
     }
-    if(!textures["PLAYER_ATTACK"].loadFromFile("images/paladin_attack.png")){
+    if(!texturesPlayer["PLAYER_ATTACK"].loadFromFile("images/paladin_attack.png")){
+        std::cout<<"player run texture rip"<<std::endl;
+    }
+
+    if(!texturesEnemies["GOATMAN_NEUTRAL"].loadFromFile("images/goatman_neutral.png")){
+        std::cout<<"player run texture rip"<<std::endl;
+    }
+    if(!texturesEnemies["GOATMAN_WALK"].loadFromFile("images/goatman_walk.png")){
+        std::cout<<"player run texture rip"<<std::endl;
+    }
+    if(!texturesEnemies["GOATMAN_ATTACK"].loadFromFile("images/goatman_attack.png")){
         std::cout<<"player run texture rip"<<std::endl;
     }
 
@@ -27,6 +41,22 @@ void GState::initTextures()
         std::cerr<<"Texture not loaded";
     }
 
+
+}
+
+void GState::initPlayer()
+{
+    this->player=new Player(sf::Vector2f(1400.0f,1020.0f), texturesPlayer);
+    this->playerGUI=new PlayerGUI(this->player);
+
+
+    enemies.emplace_back(new Enemy(sf::Vector2f(1600.0f,1020.0f), texturesEnemies));
+    //this->enemy=new Enemy(sf::Vector2f(1600.0f,1020.0f), texturesEnemies);
+
+}
+
+void GState::initMaps()
+{
     mapLayout["LEVEL_1"]={
             183, 183, 183, 184, 184, 184, 184, 184, 184, 184, 183, 183, 183,
             183, 183, 183, 184, 184, 186, 185, 184, 184, 184, 183, 183, 183,
@@ -98,12 +128,6 @@ void GState::initTextures()
     mapLayout["LEVEL_1_ENTRY2"]={
             55, 55, 55, 55, 55, 55, 14, 13, 55, 55, 55, 55, 55,
 };
-}
-
-void GState::initPlayer()
-{
-    this->player=new Player(sf::Vector2f(1400.0f,1020.0f), textures);
-
 
     maps["LEVEL_1"]=new Tilemap();
     maps["LEVEL_1"]->load(mapTextures["LEVEL_1"],mapLayout["LEVEL_1"],13,13,sf::Vector2i(160,80), sf::Vector2i (9,7));
@@ -129,28 +153,35 @@ void GState::initPlayer()
 GState::GState(sf::RenderWindow* window,std::stack<Resources*>* layers):Resources(window,layers)
 
 {
+    this->potionTimer=10;
     float aspectRatio=float(window->getSize().x)/float(window->getSize().y);
     this->view=new sf::View();
     this->view->setSize(VIEW_HEIGHT*aspectRatio,VIEW_HEIGHT);
     this->initTextures();
     this->initPlayer();
+    this->initMaps();
+
+    music.setVolume(5.0f);
+    music.setLoop(true);
+    //music.play();
+
     if(!textureWall.loadFromFile("images/wall.png")) {
         std::cerr << "Could not load wall" << std::endl;
     }
     textureWall.setRepeated(true);
-    walls["0"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(876.0f-80.0f,890.0f),334.0f);
-    walls["1"]=new Wall(&textureWall,sf::Vector2f(380.0,100.0),sf::Vector2f(1440.0f,690.0f),207.0f);
-    walls["11"]=new Wall(&textureWall,sf::Vector2f(900.0,100.0),sf::Vector2f(1440.0f,600.0f),207.0f);
-    walls["12"]=new Wall(&textureWall,sf::Vector2f(460.0,100.0),sf::Vector2f(2130.0f,950.0f),207.0f);
-    walls["2"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(2060.0f-80.0f,1340.0f),334.0f);
-    walls["3"]=new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(1040.0f-80.0f,1280.0f),207.0f);
-    walls["4"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1235.0f-80.0f,805.0f),334.0f);
-    walls["5"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1435.0f-80.0f,801.0f),334.0f);
-    walls["6"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1130.0f-80.0f,810.0f),0.0f);
-    walls["7"]=new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1270.0f-80.0f,840.0f),0.0f);
-    walls["8"]=new Wall(&textureWall,sf::Vector2f(150.0,100.0),sf::Vector2f(1500.0f-80.0f,800.0f),207.0f);
-    walls["9"]=new Wall(&textureWall,sf::Vector2f(900.0,100.0),sf::Vector2f(1600.0f-80.0f,770.0f),0.0f);
-    walls["10"]=new Wall(&textureWall,sf::Vector2f(100.0,100.0),sf::Vector2f(1450.0f-80.0f,810.0f),0.0f);
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(876.0f-160.0f,890.0f),334.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(380.0,100.0),sf::Vector2f(1440.0f,690.0f),207.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(900.0,100.0),sf::Vector2f(1440.0f,600.0f),207.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(460.0,100.0),sf::Vector2f(2130.0f,950.0f),207.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(2060.0f-80.0f,1340.0f),334.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(1040.0f-80.0f,1280.0f),207.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1235.0f-80.0f,805.0f-40.0f),334.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1435.0f-80.0f,801.0f-40.0f),334.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1130.0f-80.0f,810.0f-40.0f),0.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(200.0,100.0),sf::Vector2f(1270.0f-80.0f,840.0f-40.0f),0.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(150.0,100.0),sf::Vector2f(1500.0f-80.0f,800.0f-40.0f),207.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(900.0,100.0),sf::Vector2f(1600.0f-80.0f,770.0f),0.0f));
+    walls.emplace_back(new Wall(&textureWall,sf::Vector2f(100.0,100.0),sf::Vector2f(1450.0f-80.0f,810.0f-40.0f),0.0f));
 
 
 }
@@ -163,7 +194,11 @@ GState::~GState()
         delete it.second;
     }
     for(auto &it:walls){
-        delete it.second;
+        delete it;
+    }
+    delete this->playerGUI;
+    for(auto &it:enemies){
+        delete it;
     }
 }
 
@@ -172,41 +207,53 @@ void GState::updateView()
     this->view->setCenter(this->player->getPosition().x+39,this->player->getPosition().y+46);
 }
 
+void GState::updatePlayerGUI(const float &deltaTime)
+{
+    this->playerGUI->update(deltaTime, potionTimer);
+}
+
 
 void GState::updateInput(const float &deltaTime)
 {
     this->player->move(sf::Vector2f(0.0f,0.0f),deltaTime);
+    //this->enemy->move(sf::Vector2f(0.0f,0.0f),deltaTime);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         this->player->move(sf::Vector2f(-1.0f,0.0f),deltaTime);
-        this->player->setRow(4);
+        //this->enemy->move(sf::Vector2f(-1.0f,0.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
         this->player->move(sf::Vector2f(1.0f,0.0f),deltaTime);
-        this->player->setRow(12);
+        //this->enemy->move(sf::Vector2f(1.0f,0.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         this->player->move(sf::Vector2f(0.0f,-1.0f),deltaTime);
-        this->player->setRow(8);
+        //this->enemy->move(sf::Vector2f(0.0f,-1.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         this->player->move(sf::Vector2f(0.0f,1.0f),deltaTime);
-        this->player->setRow(0);
+        //this->enemy->move(sf::Vector2f(0.0f,1.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)&&sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         this->player->move(sf::Vector2f(-1.0f,1.0f),deltaTime);
-        this->player->setRow(2);
+        //this->enemy->move(sf::Vector2f(-1.0f,1.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&&sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         this->player->move(sf::Vector2f(1.0f,1.0f),deltaTime);
-        this->player->setRow(14);
+        //this->enemy->move(sf::Vector2f(1.0f,1.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)&&sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         this->player->move(sf::Vector2f(-1.0f,-1.0f),deltaTime);
-        this->player->setRow(6);
+        //this->enemy->move(sf::Vector2f(-1.0f,-1.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&&sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
         this->player->move(sf::Vector2f(1.0f,-1.0f),deltaTime);
-        this->player->setRow(10);
+        //this->enemy->move(sf::Vector2f(1.0f,-1.0f),deltaTime);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)){
+        if(potionTimer<1){
+            player->gainHP(player->hpMax*0.5);
+            potionTimer=30;
+        }
     }
     /*if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
     if(mousePosView.y > this->player->getPosition().y){
@@ -243,13 +290,38 @@ void GState::updateInput(const float &deltaTime)
 void GState::update(const float &deltaTime)
 {
 
+    if(potionTimer>0)
+        potionTimer-=deltaTime;
     this->updateMousePos();
     this->updateInput(deltaTime);
-    for(auto &it:walls){
-        collision::areColliding(it.second,player->hitbox,player,deltaTime,it.second->getRotation(),2);
+    this->player->hitbox->update();
+    this->player->hitboxAttack->update();
+    //this->enemy->hitbox->update();
+    //this->enemy->hitboxAttack->update();
+
+    for(auto &it:enemies){
+        it->hitbox->update();
+        it->hitboxAttack->update();
     }
-    this->updateView();
+    for(auto &it:walls){
+        collision::areColliding(it,player->hitbox,player,deltaTime,it->getRotation(),2);
+        for(auto &i:enemies){
+            collision::areColliding(it,i->hitbox,i,deltaTime,it->getRotation(),2);
+        }
+    }
+    for(auto &it:enemies){
+        collision::areColliding(it->hitboxAttack,player->hitboxAttack,player,deltaTime,it->hitboxAttack->getRotation(),0);
+    }
+    //collision::areColliding(enemy->hitboxAttack,player->hitboxAttack,player,deltaTime,enemy->hitboxAttack->getRotation(),0)
+
+    //this->enemy->update(deltaTime);
+    for(auto &it:enemies){
+        it->update(deltaTime);
+    }
     this->player->update(deltaTime);
+    //this->enemy->move(sf::Vector2f(1.0f,0.0f),deltaTime);
+    this->updateView();
+    this->playerGUI->update(deltaTime, potionTimer);
 //this->wall->getGlobalBounds().intersects(player->hitbox->getGlobalBounds());
 
 }
@@ -272,17 +344,22 @@ void GState::render(sf::RenderWindow* window)
         window->draw(*maps["LEVEL_1_ENTRY2"]);
         this->player->render(*window);
     }
-
     window->draw(*maps["LEVEL_1_TREES"]);
     window->draw(*maps["LEVEL_1_WALL2"]);
 
+    this->playerGUI->render(window);
+    for(auto &it:enemies){
+        it->render(*window);
+    }
+    //this->enemy->render(*window);
+    //this->player->hitbox->render(*window);
     /*for(Wall& p:*walls){
             p.draw(*window);
         }*/
     //wall.Draw(*window);
-    /*for(auto &it:walls){
-        window->draw(*it.second);
-    }*/
+    for(auto &it:walls){
+        window->draw(*it);
+    }
 
 
 }

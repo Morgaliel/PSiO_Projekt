@@ -10,7 +10,6 @@ public:
     bool checkIntersect(const sf::FloatRect& frect);
 
     void update();
-    void render(sf::RenderWindow& window);
     void getGlobalPosition();
 
     sf::FloatRect globalPosition;

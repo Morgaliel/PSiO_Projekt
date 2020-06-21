@@ -24,10 +24,7 @@ void Hitbox::update()
     setPosition(this->sprite.getPosition().x+this->position.left,this->sprite.getPosition().y+this->position.top);
 }
 
-void Hitbox::render(sf::RenderWindow& window)
-{
-    //window.draw();
-}
+
 
 void Hitbox::getGlobalPosition()
 {

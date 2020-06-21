@@ -9,11 +9,42 @@ template <class T1, class T2, class T3>
 bool areColliding(const T1& object1, const T2& object2, T3& object3,const float &deltaTime,float rotation, const int collisionLevel = -1)
 {
     // LEVEL 0 (axis-aligned bounding box)
-    const bool level0{ object1->getGlobalBounds().intersects(object2->getGlobalBounds()) };
+
+    if(collisionLevel==0){
+    sf::Vector2f otherPosition = object1->getPosition();
+    sf::Vector2f thisPosition = object2->getPosition();
+    sf::Vector2f otherHalfSize = sf::Vector2f(object1->getSize().x/2.0f,object1->getSize().y/2.0f);
+    sf::Vector2f thisHalfSize = sf::Vector2f(object2->getSize().x/2.0f,object2->getSize().y/2.0f);
+
+
+    float deltaX=otherPosition.x-thisPosition.x;
+    float deltaY=otherPosition.y-thisPosition.y;
+    float intersectX=fabs(deltaX)-(otherHalfSize.x+thisHalfSize.x);
+    float intersectY=fabs(deltaY)-(otherHalfSize.y+thisHalfSize.y);
+
+        if(intersectX<0.0f && intersectY<0.0f){
+
+            if(intersectX>intersectY){
+                if(deltaX>0.0f){
+                    object3->move(sf::Vector2f(-1.0f,0.0f),deltaTime);
+                }else{
+                    object3->move(sf::Vector2f(1.0f,0.0f),deltaTime);
+                }
+            }else{
+                if(deltaY>0.0f){
+                    object3->move(sf::Vector2f(0.0f,-1.0f),deltaTime);
+                }else{
+                    object3->move(sf::Vector2f(0.0f,1.0f),deltaTime);
+                }
+            }
+        }
+    }
+    const bool level0{object1->getGlobalBounds().intersects(object2->getGlobalBounds())};
     if (!level0 || collisionLevel == 0){
-        //std::cout<<"level0"<<std::endl;
         return level0;
-}
+    }
+
+
     // LEVEL 1 (any corners inside opposite rectangle)
     const sf::Transform transform1{ object1->getTransform() };
     const sf::Transform transform2{ object2->getTransform() };
@@ -87,57 +118,57 @@ bool areColliding(const T1& object1, const T2& object2, T3& object3,const float 
         if(rotation==0.0f){
             //bottom
             if(rect2BottomLeft.y>0&&rect2BottomRight.y>0&&rect2TopLeft.y>0&&rect2TopRight.y>0){
-                object3->move(sf::Vector2f(0.0f,1.0f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,0.1f),deltaTime);
             }
             //left
             else if(rect2BottomLeft.x<0&&rect2BottomRight.x>0&&rect2TopLeft.x<0&&rect2TopRight.x>0){
-                object3->move(sf::Vector2f(-1.0f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(-0.1f,0.0f),deltaTime);
             }
             //right
             else if(rect2BottomLeft.x>0&&rect2BottomRight.x>0&&rect2TopLeft.x>0&&rect2TopRight.x>0){
-                object3->move(sf::Vector2f(1.0f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(0.1f,0.0f),deltaTime);
             }
             //top
             else if(rect2BottomLeft.y>0&&rect2BottomRight.y>0&&rect2TopLeft.y<0&&rect2TopRight.y<0){
-                object3->move(sf::Vector2f(0.0f,-1.0f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,-0.1f),deltaTime);
             }
         }
         //rotation 334
         if(rotation==334.0f){
             //left
             if(rect2BottomLeft.x<0&&rect2BottomRight.x<0&&rect2TopLeft.x<0&&rect2TopRight.x>0){
-                object3->move(sf::Vector2f(-1.0f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(-0.1f,0.0f),deltaTime);
             }
             //top
             else if(rect2BottomLeft.y<0&&rect2BottomRight.y>0&&rect2TopLeft.y<0&&rect2TopRight.y<0){
-                object3->move(sf::Vector2f(0.0f,-1.0f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,-0.1f),deltaTime);
             }
             //right
             else if(rect2BottomLeft.x>0&&rect2BottomRight.x>0&&rect2TopLeft.x>0&&rect2TopRight.x>0){
-                object3->move(sf::Vector2f(1.0f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(0.1f,0.0f),deltaTime);
             }
             //bottom
             else if(rect2BottomLeft.y>0&&rect2BottomRight.y>0&&rect2TopLeft.y>0&&rect2TopRight.y>0){
-                object3->move(sf::Vector2f(0.0f,1.0f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,0.1f),deltaTime);
             }
         }
         //rotation 207
         if(rotation==207){
             //right
             if(rect2BottomLeft.x<0&&rect2BottomRight.x<0&&rect2TopLeft.x>0&&rect2TopRight.x<0){
-                object3->move(sf::Vector2f(1.0f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(0.1f,0.0f),deltaTime);
             }
             //top
             else if(rect2BottomLeft.y>0&&rect2BottomRight.y>0&&rect2TopLeft.y>0&&rect2TopRight.y>0){
-                object3->move(sf::Vector2f(0.0f,-1.0f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,-0.1f),deltaTime);
             }
             //left
             else if(rect2BottomLeft.x>0&&rect2BottomRight.x>0&&rect2TopLeft.x>0&&rect2TopRight.x>0){
-                object3->move(sf::Vector2f(-1.0f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(-0.1f,0.0f),deltaTime);
             }
             //bottom
             else if(rect2BottomLeft.y<0&&rect2BottomRight.y<0&&rect2TopLeft.y<0&&rect2TopRight.y>0){
-                object3->move(sf::Vector2f(0.0f,1.0f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,0.1f),deltaTime);
             }
         }
 

@@ -12,12 +12,14 @@ SOURCES += \
         button.cpp \
         character.cpp \
         collider.cpp \
+        enemy.cpp \
         game.cpp \
         gstate.cpp \
         hitbox.cpp \
         main.cpp \
         mainmenu.cpp \
         move.cpp \
+        playergui.cpp \
         resources.cpp \
         tilemap.cpp \
         wall.cpp \
@@ -36,11 +38,13 @@ HEADERS += \
     button.h \
     character.h \
     collider.h \
+    enemy.h \
     game.h \
     gstate.h \
     hitbox.h \
     mainmenu.h \
     move.h \
+    playergui.h \
     resources.h \
     tilemap.h \
     wall.h \

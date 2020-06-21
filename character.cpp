@@ -14,6 +14,7 @@ Character::Character()
 Character::~Character()
 {
     delete this->hitbox;
+    delete this->hitboxAttack;
     delete this->movement;
 }
 
@@ -22,9 +23,13 @@ void Character::setTexture(sf::Texture &texture)
     this->sprite.setTexture(texture);
 }
 
-void Character::createHitbox(sf::Sprite &sprite,sf::FloatRect position)
+void Character::createHitbox(sf::Sprite &sprite,sf::FloatRect position,int which)
 {
-    this->hitbox=new Hitbox(sprite,position);
+    if(which==1){
+        this->hitbox=new Hitbox(sprite,position);
+    }else if(which==2){
+        this->hitboxAttack=new Hitbox(sprite,position);
+    }
 }
 
 
@@ -43,6 +48,11 @@ void Character::setRow(unsigned int row)
     this->row=row;
 }
 
+unsigned int Character::getRow()
+{
+    return row;
+}
+
 void Character::setPosition(const sf::Vector2f position)
 {
     this->sprite.setPosition(position.x,position.y);
@@ -56,7 +66,7 @@ const sf::Vector2f &Character::getPosition() const
 void Character::move(const sf::Vector2f direction,const float &deltaTime)
 {
     if(this->movement){
-        this->movement->move(direction, deltaTime); //sets velocity
+        this->movement->move(direction, deltaTime, &row, type); //sets velocity
     }
 }
 
@@ -71,6 +81,9 @@ void Character::render(sf::RenderWindow& window)
 
     if(this->hitbox){
         window.draw(*this->hitbox);
+    }
+    if(this->hitboxAttack){
+        window.draw(*this->hitboxAttack);
     }
 }
 

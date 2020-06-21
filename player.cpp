@@ -2,7 +2,7 @@
 
 void Player::initVariables()
 {
-    this->isAttacking=false;
+
 }
 
 void Player::initComponents()
@@ -12,12 +12,19 @@ void Player::initComponents()
 
 Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textures){
 
+    type=0;
     this->initVariables();
+    this->exp=0;
+    this->hpMax=100;
+    this->hp=20;
+    this->attackDmg=5;
+    this->isAttacking=false;
     row=0;
 
     this->setPosition(position);
 
     this->createHitbox(this->sprite,sf::FloatRect(15,15,40.0f,70.0f));
+    this->createHitbox(this->sprite,sf::FloatRect(15,60,40.0f,25.0f),2);
     this->createMove(250.0f);
     this->createAnimation(textures["PLAYER_NEUTRAL"]);
     this->createAnimation(textures["PLAYER_RUN"]);
@@ -31,6 +38,24 @@ Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textur
 }
 
 Player::~Player(){}
+
+void Player::loseHP(const int hp)
+{
+    this->hp-=hp;
+
+    if(this->hp<0){
+        this->hp=0;
+    }
+}
+
+void Player::gainHP(const int hp)
+{
+    this->hp+=hp;
+
+    if(this->hp>hpMax){
+        this->hp=hpMax;
+    }
+}
 
 void Player::updateAttack()
 {
@@ -66,7 +91,6 @@ void Player::update(const float &deltaTime)
     this->updateAttack();
     this->updateAnimation(deltaTime);
 
-    this->hitbox->update();
 
 }
 

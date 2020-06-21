@@ -12,7 +12,7 @@ public:
     const sf::Vector2f &getVelocity() const;
     bool isStopped() const;
 
-    void move(const sf::Vector2f direction, const float& deltaTime);
+    void move(const sf::Vector2f direction, const float& deltaTime, unsigned int *row, int type);
     void update(const float& deltaTime);
 
 private:
