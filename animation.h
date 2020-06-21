@@ -71,8 +71,6 @@ public:
     void addAnimation(const std::string key,sf::Vector2u imageCount, float switchTime);
     void play(const std::string key,const float& deltaTime,unsigned int row, const bool priority=false);
 
-    //sf::IntRect uvRect;
-
 };
 
 #endif // ANIMATION_H

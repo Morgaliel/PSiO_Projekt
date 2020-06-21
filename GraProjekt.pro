@@ -11,7 +11,6 @@ SOURCES += \
         animation.cpp \
         button.cpp \
         character.cpp \
-        collider.cpp \
         enemy.cpp \
         game.cpp \
         goatman.cpp \

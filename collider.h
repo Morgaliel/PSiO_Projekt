@@ -72,12 +72,12 @@ bool areColliding(const T1& object1, const T2& object2, T3& object3,const float 
         rect1TopRight,
         rect1TopLeft,
     };
+    //needed to debug
     //std::cout<<"BOTL1 "<<rect1BottomLeft.x<<"        "<<rect1BottomLeft.y<<std::endl;
     //std::cout<<"BOTR1 "<<rect1BottomRight.x<<"        "<<rect1BottomRight.y<<std::endl;
     //std::cout<<"TOPL1 "<<rect1TopLeft.x<<"        "<<rect1TopLeft.y<<std::endl;
     //std::cout<<"TOPR1 "<<rect1TopRight.x<<"        "<<rect1TopRight.y<<std::endl;
     if (!satRectangleAndPoints(rect2Size, rect1Points)){
-        //std::cout<<"satfalse"<<std::endl;
         return false;
     }
     std::array<sf::Vector2f, 4> rect2Points
@@ -87,17 +87,13 @@ bool areColliding(const T1& object1, const T2& object2, T3& object3,const float 
         rect2TopRight,
         rect2TopLeft,
     };
-    //if(rect2BottomLeft.x<0&&rect2BottomRight.x<0&&rect2TopLeft.x<0&&rect2TopRight.x<0){
-            //object3->move(sf::Vector2f(-1.0f,0.0f),deltaTime);
-            //std::cout<<"kolizja!"<<std::endl;
-    //}
+    //needed to debug
     //std::cout<<"BOTL2 "<<rect2BottomLeft.x<<"        "<<rect2BottomLeft.y<<std::endl;
     //std::cout<<"BOTR2 "<<rect2BottomRight.x<<"        "<<rect2BottomRight.y<<std::endl;
     //std::cout<<"TOPL2 "<<rect2TopLeft.x<<"        "<<rect2TopLeft.y<<std::endl;
     //std::cout<<"TOPR2 "<<rect2TopRight.x<<"        "<<rect2TopRight.y<<std::endl;
 
     if(!satRectangleAndPoints(rect1Size, rect2Points)){
-        //std::cout<<"sattrue"<<std::endl;
     }
     const bool level1{ (
         (rect1Bounds.contains(rect2TopLeft)) ||
@@ -109,10 +105,6 @@ bool areColliding(const T1& object1, const T2& object2, T3& object3,const float 
         (rect2Bounds.contains(rect1BottomLeft)) ||
         (rect2Bounds.contains(rect1BottomRight))) };
     if (level1 || collisionLevel == 1){
-        /*std::cout<<"BOTL2 "<<rect2BottomLeft.x<<"        "<<rect2BottomLeft.y<<std::endl;
-        std::cout<<"BOTR2 "<<rect2BottomRight.x<<"        "<<rect2BottomRight.y<<std::endl;
-        std::cout<<"TOPL2 "<<rect2TopLeft.x<<"        "<<rect2TopLeft.y<<std::endl;
-        std::cout<<"TOPR2 "<<rect2TopRight.x<<"        "<<rect2TopRight.y<<std::endl;*/
 
         //rotation 0
         if(rotation==0.0f){

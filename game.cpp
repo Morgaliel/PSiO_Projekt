@@ -32,7 +32,6 @@ Game::Game()
 Game::~Game()
 {
     delete this->window;
-    //delete this->view;
     while(!this->layers.empty()){
         delete this->layers.top();
         this->layers.pop();
@@ -63,21 +62,12 @@ void Game::updateEvents()
         }
         if (event.type == sf::Event::MouseButtonPressed) {
                 if(event.mouseButton.button == sf::Mouse::Left) {
-                    //sf::Vector2i mouse_pos = sf::Mouse::getPosition(*window);
                     sf::Vector2f mousePosView=window->mapPixelToCoords(sf::Mouse::getPosition(*window));
-                    //std::cout << "Mouse clicked: " << mouse_pos.x << ", " << mouse_pos.y << std::endl;
                     std::cout << "Mouse clicked: " << mousePosView.x << ", " << mousePosView.y << std::endl;
                 }
             }
 
     }
-
-    //hero->Update(deltaTime);
-
-    //Collider col=hero->GetCollider();
-    /*for(Wall& p:walls){
-        p.GetCollider().CheckCollision(col);
-    }*/
 
 }
 
@@ -103,7 +93,6 @@ void Game::render()
 {
     // clear and view
     this->window->clear(sf::Color::Black);
-    //this->window->setView(*view);
 
     //render
     if(!this->layers.empty()){
@@ -117,25 +106,6 @@ void Game::render()
 void Game::run()
 {
     while (this->window->isOpen()) {
-
-    //FOR NOW THIS IS HERE
-
-        //walls
-        /*sf::Texture textureWall;
-        if(!textureWall.loadFromFile("images/wall.png")) {
-            std::cerr << "Could not load wall" << std::endl;
-        }
-        textureWall.setRepeated(true);
-
-        std::vector<Wall> walls;
-
-        walls.push_back(Wall(&textureWall,sf::Vector2f(250.0,100.0),sf::Vector2f(450.0f,480.0f)));
-        walls.push_back(Wall(&textureWall,sf::Vector2f(300.0f,100.0f),sf::Vector2f(400.0f,180.0f)));
-        walls.push_back(Wall(&textureWall,sf::Vector2f(250.0f,100.0f),sf::Vector2f(860.0f,380.0f)));
-        walls.push_back(Wall(&textureWall,sf::Vector2f(3500.0f,150.0f),sf::Vector2f(640.0f,690.0f)));
-*/
-
-        //DELETE LATER
         this->updateDT();
         this->update();
         this->render();

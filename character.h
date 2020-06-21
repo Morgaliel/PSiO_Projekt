@@ -24,7 +24,7 @@ public:
 
     virtual void setDie(bool die);
     virtual bool getDie();
-    virtual void loseHP(const int hp, const float& deltaTime)=0;
+    virtual void loseHP(const int hp)=0;
     virtual void gainHP(const int hp)=0;
     virtual float getDistance(const Character& character) const;
     virtual const sf::Vector2f getCenter() const;

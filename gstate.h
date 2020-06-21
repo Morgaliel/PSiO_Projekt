@@ -13,7 +13,7 @@ public:
     GState(sf::RenderWindow* window,std::stack<Resources*>* layers);
     virtual ~GState();
 
-    void updateCombat(const float &deltaTime);
+    void updateCombat();
     void updateView();
     void updatePlayerGUI(const float &deltaTime);
     void updateInput(const float &deltaTime);

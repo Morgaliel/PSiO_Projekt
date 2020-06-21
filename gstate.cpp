@@ -174,8 +174,6 @@ GState::GState(sf::RenderWindow* window,std::stack<Resources*>* layers):Resource
     }
     textureWall.setRepeated(true);
     walls.emplace_back(new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(876.0f-160.0f,890.0f),334.0f));
-    //walls.emplace_back(new Wall(&textureWall,sf::Vector2f(380.0,100.0),sf::Vector2f(1440.0f,690.0f),207.0f));
-    //walls.emplace_back(new Wall(&textureWall,sf::Vector2f(500.0,100.0),sf::Vector2f(1440.0f,600.0f),207.0f));
     walls.emplace_back(new Wall(&textureWall,sf::Vector2f(460.0,100.0),sf::Vector2f(2130.0f,950.0f),207.0f));
     walls.emplace_back(new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(2060.0f-80.0f,1340.0f),334.0f));
     walls.emplace_back(new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(1040.0f-80.0f,1280.0f),207.0f));
@@ -206,7 +204,7 @@ GState::~GState()
     }
 }
 
-void GState::updateCombat(const float &deltaTime)
+void GState::updateCombat()
 {
         enemy=enemies[0];
         for(auto &it:enemies){
@@ -218,7 +216,7 @@ void GState::updateCombat(const float &deltaTime)
             if(enemy){
                 if(enemy->getDistance(*this->player)<this->player->range && enemy->hitbox->getGlobalB().contains(mousePosView)){
                     if(player->getAtck()==true){
-                    enemy->loseHP(player->attackDmg, deltaTime);
+                    enemy->loseHP(player->attackDmg);
                     std::cout<<enemy->hp<<std::endl;
                     }
                 }
@@ -241,38 +239,29 @@ void GState::updatePlayerGUI(const float &deltaTime)
 void GState::updateInput(const float &deltaTime)
 {
     this->player->move(sf::Vector2f(0.0f,0.0f),deltaTime);
-    //this->enemy->move(sf::Vector2f(0.0f,0.0f),deltaTime);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
         this->player->move(sf::Vector2f(-1.0f,0.0f),deltaTime);
-        //this->enemy->move(sf::Vector2f(-1.0f,0.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
         this->player->move(sf::Vector2f(1.0f,0.0f),deltaTime);
-        //this->enemy->move(sf::Vector2f(1.0f,0.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
         this->player->move(sf::Vector2f(0.0f,-1.0f),deltaTime);
-        //this->enemy->move(sf::Vector2f(0.0f,-1.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
         this->player->move(sf::Vector2f(0.0f,1.0f),deltaTime);
-        //this->enemy->move(sf::Vector2f(0.0f,1.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)&&sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
         this->player->move(sf::Vector2f(-1.0f,1.0f),deltaTime);
-        //this->enemy->move(sf::Vector2f(-1.0f,1.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)&&sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
         this->player->move(sf::Vector2f(1.0f,1.0f),deltaTime);
-        //this->enemy->move(sf::Vector2f(1.0f,1.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)&&sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
         this->player->move(sf::Vector2f(-1.0f,-1.0f),deltaTime);
-        //this->enemy->move(sf::Vector2f(-1.0f,-1.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)&&sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
         this->player->move(sf::Vector2f(1.0f,-1.0f),deltaTime);
-        //this->enemy->move(sf::Vector2f(1.0f,-1.0f),deltaTime);
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
         if(potionTimer<1){
@@ -321,8 +310,6 @@ void GState::update(const float &deltaTime)
     this->updateInput(deltaTime);
     this->player->hitbox->update();
     this->player->hitboxAttack->update();
-    //this->enemy->hitbox->update();
-    //this->enemy->hitboxAttack->update();
 
     for(auto &it:enemies){
         it->hitbox->update();
@@ -354,10 +341,7 @@ void GState::update(const float &deltaTime)
     this->player->update(deltaTime);
     this->updateView();
     this->playerGUI->update(deltaTime, potionTimer);
-    this->updateCombat(deltaTime);
-
-//this->wall->getGlobalBounds().intersects(player->hitbox->getGlobalBounds());
-
+    this->updateCombat();
 }
 
 void GState::render(sf::RenderWindow* window)

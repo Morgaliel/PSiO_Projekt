@@ -23,7 +23,6 @@ PlayerGUI::PlayerGUI(Player* player)
     this->potionTime.setPosition(this->player->getPosition().x-230.0f,this->player->getPosition().y+280.0f);
     this->potionTime.setOutlineThickness(1.0f);
     this->potionTime.setOutlineColor(sf::Color::White);
-    //this->potionTime.setOrigin(potionTime.getSize().x/2,potionTime.getSize().y/2);
 
 }
 
@@ -43,7 +42,6 @@ void PlayerGUI::update(const float &deltaTime, const float& potionTimer)
 
     this->potionTimeText.setOrigin(potionTimeText.getLocalBounds().width/2.f,potionTimeText.getLocalBounds().height/2.f);
     this->potionTimeText.setPosition(potionTime.getPosition().x+17,potionTime.getPosition().y+9);
-    //std::cout<<potionTimeText.getLocalBounds().width;
     this->potionTimeText.setString(std::to_string(static_cast<int>(potionTimer)));
 
 

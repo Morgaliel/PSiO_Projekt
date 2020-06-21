@@ -21,8 +21,6 @@ private:
     std::string potionTimeString;
     sf::Text potionTimeText;
     sf::RectangleShape potionTime;
-    //sf::RectangleShape expBarOut;
-    //sf::RectangleShape expBarIn;
     float hpMaxWidth;
 };
 

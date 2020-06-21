@@ -9,7 +9,7 @@ public:
     Goatman(sf::Vector2f position, std::map<std::string, sf::Texture> &textures);
     virtual ~Goatman();
 
-    virtual void loseHP(const int hp, const float& deltaTime);
+    virtual void loseHP(const int hp);
     void update(const float &deltaTime);
 private:
     bool isAttacking=false;

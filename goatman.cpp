@@ -48,13 +48,12 @@ Goatman::~Goatman()
     }
 }*/
 
-void Goatman::loseHP(const int hp, const float& deltaTime)
+void Goatman::loseHP(const int hp)
 {
     this->hp-=hp;
 
     if(this->hp<=0){
         this->hp=0;
-
     }
 }
 

@@ -21,7 +21,6 @@ public:
 private:
     //Variables
     sf::RenderWindow *window;
-    //sf::View *view;
     sf::Event event;
 
     sf::Clock theClock;

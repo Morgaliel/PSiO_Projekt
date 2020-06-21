@@ -9,7 +9,7 @@ public:
     Player(sf::Vector2f position,std::map<std::string, sf::Texture> &textures);
     ~Player();
 
-    virtual void loseHP(const int hp, const float& deltaTime);
+    virtual void loseHP(const int hp);
     virtual void gainHP(const int hp);
     void updateAttack();
     void updateAnimation(const float& deltaTime);
@@ -17,8 +17,6 @@ public:
     bool getAtck();
     bool getAttacking();
 
-    //Collider GetCollider();
-    //sf::Vector2f GetPosition();
 private:
     bool isAttacking;
     bool attack=false;

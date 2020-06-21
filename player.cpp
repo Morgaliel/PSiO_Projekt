@@ -41,7 +41,7 @@ Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textur
 
 Player::~Player(){}
 
-void Player::loseHP(const int hp, const float& deltaTime)
+void Player::loseHP(const int hp)
 {
     this->hp-=hp;
 
@@ -116,16 +116,3 @@ bool Player::getAttacking()
 {
     return isAttacking;
 }
-
-
-
-/*
-//Collider Player::GetCollider() {return Collider(body);}
-
-sf::Vector2f Player::GetPosition()
-{
-    sf::Vector2f pos=body.getPosition();
-    pos.x+=body.getOrigin().x;
-    pos.y+=body.getOrigin().y;
-    return pos;
-}*/

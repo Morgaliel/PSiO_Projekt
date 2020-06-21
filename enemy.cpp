@@ -12,7 +12,7 @@ Enemy::~Enemy()
 
 }
 
-void Enemy::loseHP(const int hp, const float& deltaTime)
+void Enemy::loseHP(const int hp)
 {
     this->hp-=hp;
 
