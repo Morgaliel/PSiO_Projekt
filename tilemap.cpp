@@ -5,12 +5,12 @@ Tilemap::Tilemap()
 
 }
 
-bool Tilemap::load(sf::Texture& texture, std::vector<int> tiles, unsigned int width, unsigned int height,sf::Vector2i tileSize, sf::Vector2i vOrigin)
+bool Tilemap::load(sf::Texture& texture, std::vector<int> tiles, unsigned int width, unsigned int height,sf::Vector2i tileSize, sf::Vector2i vOrigin, int lvl)
 {
     m_tileset=texture;
     m_vertices.setPrimitiveType(sf::Quads);
     m_vertices.resize(width * height * 4);
-
+    vOrigin=vOrigin*lvl;
 
     for (unsigned int i = 0; i < width; ++i)
         for (unsigned int j = 0; j < height; ++j)

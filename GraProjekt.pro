@@ -14,6 +14,7 @@ SOURCES += \
         collider.cpp \
         enemy.cpp \
         game.cpp \
+        goatman.cpp \
         gstate.cpp \
         hitbox.cpp \
         main.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     collider.h \
     enemy.h \
     game.h \
+    goatman.h \
     gstate.h \
     hitbox.h \
     mainmenu.h \

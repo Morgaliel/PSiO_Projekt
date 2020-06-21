@@ -26,7 +26,7 @@ void Hitbox::update()
 
 
 
-void Hitbox::getGlobalPosition()
+sf::FloatRect Hitbox::getGlobalB()
 {
-    globalPosition=getGlobalBounds();
+    return getGlobalBounds();
 }

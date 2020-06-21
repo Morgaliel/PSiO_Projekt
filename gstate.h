@@ -3,6 +3,7 @@
 #include <resources.h>
 #include <playergui.h>
 #include <enemy.h>
+#include <goatman.h>
 
 static const float VIEW_HEIGHT=600.0f;
 
@@ -12,6 +13,7 @@ public:
     GState(sf::RenderWindow* window,std::stack<Resources*>* layers);
     virtual ~GState();
 
+    void updateCombat(const float &deltaTime);
     void updateView();
     void updatePlayerGUI(const float &deltaTime);
     void updateInput(const float &deltaTime);
@@ -27,6 +29,7 @@ private:
     std::map<std::string,Tilemap*> maps;
     sf::Texture textureWall;
     std::vector<Wall*>walls;
+    std::vector<Wall*>teleport;
     sf::Music music;
 
     void initTextures();

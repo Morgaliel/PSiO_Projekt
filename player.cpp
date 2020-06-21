@@ -12,13 +12,15 @@ void Player::initComponents()
 
 Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textures){
 
-    type=0;
+    characterType=0;
     this->initVariables();
     this->exp=0;
     this->hpMax=100;
     this->hp=20;
     this->attackDmg=5;
+    this->range=60.0f;
     this->isAttacking=false;
+    this->setDie(false);
     row=0;
 
     this->setPosition(position);
@@ -39,7 +41,7 @@ Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textur
 
 Player::~Player(){}
 
-void Player::loseHP(const int hp)
+void Player::loseHP(const int hp, const float& deltaTime)
 {
     this->hp-=hp;
 
@@ -59,18 +61,27 @@ void Player::gainHP(const int hp)
 
 void Player::updateAttack()
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
         this->isAttacking=true;
         this->sprite.setOrigin(44.0f,14.0f);
+
     }
 }
 
 void Player::updateAnimation(const float &deltaTime)
 {
+
     if(this->isAttacking){
         this->animation[2].play("PLAYER_ATTACK",deltaTime,this->row,true);
+        this->attack=true;
+        if(this->one==1){
+            attack=false;
+        }else{
+            this->one=1;
+        }
         if(this->animation[2].isDone("PLAYER_ATTACK")){
             this->isAttacking=false;
+            this->one=0;
             this->sprite.setOrigin(0.0f,0.0f);
         }
     }
@@ -84,8 +95,10 @@ void Player::update(const float &deltaTime)
 
     if(this->movement->isStopped()){
         this->animation[0].play("PLAYER_NEUTRAL",deltaTime,this->row);
+        this->attack=false;
     }else{
         this->animation[1].play("PLAYER_RUN",deltaTime,this->row);
+        this->attack=false;
     }
 
     this->updateAttack();
@@ -93,6 +106,18 @@ void Player::update(const float &deltaTime)
 
 
 }
+
+bool Player::getAtck()
+{
+    return attack;
+}
+
+bool Player::getAttacking()
+{
+    return isAttacking;
+}
+
+
 
 /*
 //Collider Player::GetCollider() {return Collider(body);}

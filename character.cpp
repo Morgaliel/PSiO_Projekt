@@ -66,8 +66,44 @@ const sf::Vector2f &Character::getPosition() const
 void Character::move(const sf::Vector2f direction,const float &deltaTime)
 {
     if(this->movement){
-        this->movement->move(direction, deltaTime, &row, type); //sets velocity
+        this->movement->move(direction, deltaTime, &row, characterType); //sets velocity
     }
+}
+
+void Character::setDie(bool die)
+{
+    this->isDied=die;
+}
+
+bool Character::getDie()
+{
+    return this->isDied;
+}
+
+float Character::getDistance(const Character &character) const
+{
+    //std::cout<<sqrt(pow(this->getCenter().x-character.getCenter().x,2)+pow(this->getCenter().y-character.getCenter().y,2))<<std::endl;
+    return sqrt(pow(this->getCenter().x-character.getCenter().x,2)+pow(this->getCenter().y-character.getCenter().y,2));
+}
+
+const sf::Vector2f Character::getCenter() const
+{
+    if (this->hitboxAttack)
+        return
+                this->hitboxAttack->getPosition() +
+                sf::Vector2f
+                (
+                    this->hitboxAttack->getGlobalBounds().width / 2.f,
+                    this->hitboxAttack->getGlobalBounds().height / 2.f
+                );
+
+        return
+            this->sprite.getPosition() +
+            sf::Vector2f
+            (
+                this->sprite.getGlobalBounds().width / 2.f,
+                this->sprite.getGlobalBounds().height / 2.f
+            );
 }
 
 void Character::update(const float &deltaTime)

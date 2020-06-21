@@ -28,28 +28,28 @@ void Move::move(const sf::Vector2f direction, const float& deltaTime, unsigned i
 
 
     if(type==0){
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
             *row=4;
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
             *row=12;
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
             *row=8;
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
             *row=0;
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)&&sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)&&sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
             *row=2;
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&&sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)&&sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
             *row=14;
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)&&sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)&&sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
             *row=6;
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&&sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)&&sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
             *row=10;
         }
     }

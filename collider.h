@@ -118,57 +118,57 @@ bool areColliding(const T1& object1, const T2& object2, T3& object3,const float 
         if(rotation==0.0f){
             //bottom
             if(rect2BottomLeft.y>0&&rect2BottomRight.y>0&&rect2TopLeft.y>0&&rect2TopRight.y>0){
-                object3->move(sf::Vector2f(0.0f,0.1f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,0.5f),deltaTime);
             }
             //left
             else if(rect2BottomLeft.x<0&&rect2BottomRight.x>0&&rect2TopLeft.x<0&&rect2TopRight.x>0){
-                object3->move(sf::Vector2f(-0.1f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(-0.5f,0.0f),deltaTime);
             }
             //right
             else if(rect2BottomLeft.x>0&&rect2BottomRight.x>0&&rect2TopLeft.x>0&&rect2TopRight.x>0){
-                object3->move(sf::Vector2f(0.1f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(0.5f,0.0f),deltaTime);
             }
             //top
             else if(rect2BottomLeft.y>0&&rect2BottomRight.y>0&&rect2TopLeft.y<0&&rect2TopRight.y<0){
-                object3->move(sf::Vector2f(0.0f,-0.1f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,-0.5f),deltaTime);
             }
         }
         //rotation 334
         if(rotation==334.0f){
             //left
             if(rect2BottomLeft.x<0&&rect2BottomRight.x<0&&rect2TopLeft.x<0&&rect2TopRight.x>0){
-                object3->move(sf::Vector2f(-0.1f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(-0.5f,0.0f),deltaTime);
             }
             //top
             else if(rect2BottomLeft.y<0&&rect2BottomRight.y>0&&rect2TopLeft.y<0&&rect2TopRight.y<0){
-                object3->move(sf::Vector2f(0.0f,-0.1f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,-0.5f),deltaTime);
             }
             //right
             else if(rect2BottomLeft.x>0&&rect2BottomRight.x>0&&rect2TopLeft.x>0&&rect2TopRight.x>0){
-                object3->move(sf::Vector2f(0.1f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(0.5f,0.0f),deltaTime);
             }
             //bottom
             else if(rect2BottomLeft.y>0&&rect2BottomRight.y>0&&rect2TopLeft.y>0&&rect2TopRight.y>0){
-                object3->move(sf::Vector2f(0.0f,0.1f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,0.5f),deltaTime);
             }
         }
         //rotation 207
         if(rotation==207){
             //right
             if(rect2BottomLeft.x<0&&rect2BottomRight.x<0&&rect2TopLeft.x>0&&rect2TopRight.x<0){
-                object3->move(sf::Vector2f(0.1f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(0.5f,0.0f),deltaTime);
             }
             //top
             else if(rect2BottomLeft.y>0&&rect2BottomRight.y>0&&rect2TopLeft.y>0&&rect2TopRight.y>0){
-                object3->move(sf::Vector2f(0.0f,-0.1f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,-0.5f),deltaTime);
             }
             //left
             else if(rect2BottomLeft.x>0&&rect2BottomRight.x>0&&rect2TopLeft.x>0&&rect2TopRight.x>0){
-                object3->move(sf::Vector2f(-0.1f,0.0f),deltaTime);
+                object3->move(sf::Vector2f(-0.5f,0.0f),deltaTime);
             }
             //bottom
             else if(rect2BottomLeft.y<0&&rect2BottomRight.y<0&&rect2TopLeft.y<0&&rect2TopRight.y>0){
-                object3->move(sf::Vector2f(0.0f,0.1f),deltaTime);
+                object3->move(sf::Vector2f(0.0f,0.5f),deltaTime);
             }
         }
 
