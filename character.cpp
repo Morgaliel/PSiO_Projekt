@@ -116,10 +116,10 @@ void Character::render(sf::RenderWindow& window)
     window.draw(this->sprite);
 
     if(this->hitbox){
-        window.draw(*this->hitbox);
+        //window.draw(*this->hitbox);
     }
     if(this->hitboxAttack){
-        window.draw(*this->hitboxAttack);
+        //window.draw(*this->hitboxAttack);
     }
 }
 

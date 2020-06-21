@@ -17,6 +17,8 @@ private:
     sf::Font font;
     sf::RectangleShape hpBarOut;
     sf::RectangleShape hpBarIn;
+    sf::RectangleShape gameOverBar;
+    sf::Text gameOverText;
 
     std::string potionTimeString;
     sf::Text potionTimeText;

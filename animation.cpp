@@ -24,8 +24,26 @@ void Animation::addAnimation(const std::string key,sf::Vector2u imageCount, floa
 
 void Animation::play(const std::string key,const float& deltaTime,unsigned int row, const bool priority)
 {
-    if(this->priorityAnimation){
-        if(this->priorityAnimation==this->animations[key]){
+
+        if(this->priorityAnimation){
+            if(this->priorityAnimation==this->animations[key]){
+                if(this->lastAnimation!=this->animations[key]){
+                    if(this->lastAnimation==nullptr){
+                        this->lastAnimation=this->animations[key];
+                    }else{
+                        this->lastAnimation->reset();
+                        this->lastAnimation=this->animations[key];
+                    }
+                }
+
+                if(this->animations[key]->play(deltaTime,row)){
+                    this->priorityAnimation=nullptr;
+                }
+            }
+        }else{
+            if(priority){
+                this->priorityAnimation=this->animations[key];
+            }
             if(this->lastAnimation!=this->animations[key]){
                 if(this->lastAnimation==nullptr){
                     this->lastAnimation=this->animations[key];
@@ -35,23 +53,7 @@ void Animation::play(const std::string key,const float& deltaTime,unsigned int r
                 }
             }
 
-            if(this->animations[key]->play(deltaTime,row)){
-                this->priorityAnimation=nullptr;
-            }
-        }
-    }else{
-        if(priority){
-            this->priorityAnimation=this->animations[key];
-        }
-        if(this->lastAnimation!=this->animations[key]){
-            if(this->lastAnimation==nullptr){
-                this->lastAnimation=this->animations[key];
-            }else{
-                this->lastAnimation->reset();
-                this->lastAnimation=this->animations[key];
-            }
+            this->animations[key]->play(deltaTime,row);
         }
 
-        this->animations[key]->play(deltaTime,row);
-    }
 }

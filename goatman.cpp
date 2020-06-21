@@ -4,8 +4,9 @@ Goatman::Goatman(sf::Vector2f position, std::map<std::string, sf::Texture> &text
 {
     this->enemyType=1;
     this->hpMax=100;
-    this->hp=10;
+    this->hp=20;
     this->attackDmg=5;
+    this->isAttacking=false;
     this->setDie(false);
     this->setPosition(position);
     this->createHitbox(this->sprite,sf::FloatRect(15,5,40.0f,70.0f));
@@ -29,56 +30,66 @@ Goatman::~Goatman()
 
 }
 
-/*void Enemy::updateAttack()
+void Goatman::updateAttack()
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
         this->isAttacking=true;
         this->sprite.setOrigin(15.0f,3.0f);
-    }
-}*/
+}
 
-/*void Enemy::updateAnimation(const float &deltaTime)
+void Goatman::updateAnimation(const float &deltaTime)
 {
-    if(this->isAttacking){
+    if(this->isAttacking&&hp>0){
         this->animation[2].play("GOATMAN_ATTACK",deltaTime,this->row,true);
+        this->attack=true;
+        if(this->one==1){
+            attack=false;
+        }else{
+            this->one=1;
+        }
         if(this->animation[2].isDone("GOATMAN_ATTACK")){
             this->isAttacking=false;
-            this->sprite.setOrigin(0.0f,0.0f);
+            this->one=0;
+            //this->sprite.setOrigin(0.0f,0.0f);
         }
     }
-}*/
+}
 
-void Goatman::loseHP(const int hp)
+
+void Goatman::loseHP(const int hp, const float deltaTime)
 {
     this->hp-=hp;
 
     if(this->hp<=0){
         this->hp=0;
+        update(deltaTime);
     }
 }
 
 void Goatman::update(const float &deltaTime)
 {
+
+
     if(!this->isAttacking)
     this->movement->update(deltaTime);
+
+
 
     if(this->movement->isStopped()){
         this->animation[0].play("GOATMAN_NEUTRAL",deltaTime,this->row);
     }else{
         this->animation[1].play("GOATMAN_WALK",deltaTime,this->row);
     }
-
     if(this->hp==0){
+
         this->sprite.setOrigin(38.0f,30.0f);
         this->animation[3].play("GOATMAN_DIE",deltaTime,this->row,true);
         if(this->animation[3].isDone("GOATMAN_DIE")){
             this->sprite.setOrigin(0.0f,0.0f);
-            hp=1;
             this->setDie(true);
         }
     }
-    //this->updateAttack();
-    //this->updateAnimation(deltaTime);
+
+    this->updateAnimation(deltaTime);
 
 
 }

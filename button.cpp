@@ -12,10 +12,10 @@ Button::Button(float x, float y, float width,float height,sf::Font* font,std::st
     this->text.setFont(*this->font);
     this->text.setString(text);
     this->text.setFillColor(sf::Color::White);
-    this->text.setCharacterSize(12);
+    this->text.setCharacterSize(20);
     this->text.setPosition(
          this->jenson.getPosition().x+(jenson.getGlobalBounds().width/2.0f)-this->text.getGlobalBounds().width/2.0f,
-         this->jenson.getPosition().y+(jenson.getGlobalBounds().height/2.0f)-this->text.getGlobalBounds().height/2.0f
+         this->jenson.getPosition().y+(jenson.getGlobalBounds().height/2.0f)-this->text.getGlobalBounds().height
     );
 
     this->idleColor=idleColor;

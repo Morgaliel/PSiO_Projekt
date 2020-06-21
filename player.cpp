@@ -16,7 +16,7 @@ Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textur
     this->initVariables();
     this->exp=0;
     this->hpMax=100;
-    this->hp=20;
+    this->hp=90;
     this->attackDmg=5;
     this->range=60.0f;
     this->isAttacking=false;
@@ -41,7 +41,7 @@ Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textur
 
 Player::~Player(){}
 
-void Player::loseHP(const int hp)
+void Player::loseHP(const int hp, const float deltaTime)
 {
     this->hp-=hp;
 

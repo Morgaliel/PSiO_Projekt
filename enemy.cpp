@@ -12,7 +12,17 @@ Enemy::~Enemy()
 
 }
 
-void Enemy::loseHP(const int hp)
+bool Enemy::getAtck()
+{
+    return attack;
+}
+
+bool Enemy::getAttacking()
+{
+    return isAttacking;
+}
+
+void Enemy::loseHP(const int hp, const float deltaTime)
 {
     this->hp-=hp;
 

@@ -43,7 +43,7 @@ Game::~Game()
 //Funcutions
 void Game::quitGame()
 {
-    std::cout<<"ELO"<<"/n";
+    //std::cout<<"ELO"<<"/n";
 }
 void Game::updateDT()
 {

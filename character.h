@@ -22,9 +22,12 @@ public:
     virtual const sf::Vector2f &getPosition() const;
     virtual void move(const sf::Vector2f direction,const float &deltaTime);
 
+
+    virtual bool getAtck()=0;
+    virtual bool getAttacking()=0;
     virtual void setDie(bool die);
     virtual bool getDie();
-    virtual void loseHP(const int hp)=0;
+    virtual void loseHP(const int hp, const float deltaTime)=0;
     virtual void gainHP(const int hp)=0;
     virtual float getDistance(const Character& character) const;
     virtual const sf::Vector2f getCenter() const;
@@ -45,6 +48,8 @@ protected:
     unsigned int row;
     int characterType;
     bool isDied;
+    bool isAttacking;
+    bool attack=false;
 
 
 

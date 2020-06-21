@@ -13,7 +13,7 @@ public:
     GState(sf::RenderWindow* window,std::stack<Resources*>* layers);
     virtual ~GState();
 
-    void updateCombat();
+    void updateCombat(const float &deltaTime);
     void updateView();
     void updatePlayerGUI(const float &deltaTime);
     void updateInput(const float &deltaTime);
@@ -31,6 +31,7 @@ private:
     std::vector<Wall*>walls;
     std::vector<Wall*>teleport;
     sf::Music music;
+    float oneSecond;
 
     void initTextures();
     void initPlayer();

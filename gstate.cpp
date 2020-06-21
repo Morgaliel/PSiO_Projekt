@@ -55,7 +55,6 @@ void GState::initPlayer()
 
     enemies.emplace_back(new Goatman(sf::Vector2f(1700.0f,1020.0f), texturesEnemies));
     enemies.emplace_back(new Goatman(sf::Vector2f(1550.0f,980.0f), texturesEnemies));
-    //this->enemy=new Enemy(sf::Vector2f(1600.0f,1020.0f), texturesEnemies);
 
 }
 
@@ -82,12 +81,6 @@ void GState::initMaps()
             35, 35, 55, 54, 35, 35, 35, 35, 35, 35, 35, 35, 35,
             35, 35, 53, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
             35, 51, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
 };
     mapLayout["LEVEL_1_WALL"]={
             35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
@@ -109,7 +102,7 @@ void GState::initMaps()
 };
     mapLayout["LEVEL_1_WALL_CORNER"]={
             35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            6, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 6
+            6, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35
 };
     mapLayout["LEVEL_1_TREES"]={
             120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120,
@@ -126,8 +119,6 @@ void GState::initMaps()
 };
     mapLayout["LEVEL_1_ENTRY"]={
             20, 19, 18, 17, 16, 15, 55, 55, 12, 11, 10, 9, 8,
-            55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55,
-            55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55,
 };
     mapLayout["LEVEL_1_ENTRY2"]={
             55, 55, 55, 55, 55, 55, 14, 13, 55, 55, 55, 55, 55,
@@ -137,7 +128,7 @@ void GState::initMaps()
     maps["LEVEL_1"]->load(mapTextures["LEVEL_1"],mapLayout["LEVEL_1"],13,13,sf::Vector2i(160,80), sf::Vector2i (9,7),1);
 
     maps["LEVEL_1_OBJ"]=new Tilemap();
-    maps["LEVEL_1_OBJ"]->load(mapTextures["LEVEL_1_OBJ"],mapLayout["LEVEL_1_OBJ"],13,11,sf::Vector2i(160,320), sf::Vector2i (8,8),1);
+    maps["LEVEL_1_OBJ"]->load(mapTextures["LEVEL_1_OBJ"],mapLayout["LEVEL_1_OBJ"],13,5,sf::Vector2i(160,320), sf::Vector2i (8,8),1);
 
     maps["LEVEL_1_WALL"]=new Tilemap();
     maps["LEVEL_1_WALL"]->load(mapTextures["LEVEL_1_OBJ"],mapLayout["LEVEL_1_WALL"],13,7,sf::Vector2i(160,320), sf::Vector2i (8,8),1);
@@ -149,7 +140,7 @@ void GState::initMaps()
     maps["LEVEL_1_TREES"]=new Tilemap();
     maps["LEVEL_1_TREES"]->load(mapTextures["LEVEL_1_TREES"],mapLayout["LEVEL_1_TREES"],13,11,sf::Vector2i(160,385), sf::Vector2i (8,8),1);
     maps["LEVEL_1_ENTRY"]=new Tilemap();
-    maps["LEVEL_1_ENTRY"]->load(mapTextures["LEVEL_1_ENTRY"],mapLayout["LEVEL_1_ENTRY"],13,3,sf::Vector2i(160,640), sf::Vector2i (8,8),1);
+    maps["LEVEL_1_ENTRY"]->load(mapTextures["LEVEL_1_ENTRY"],mapLayout["LEVEL_1_ENTRY"],13,1,sf::Vector2i(160,640), sf::Vector2i (8,8),1);
     maps["LEVEL_1_ENTRY2"]=new Tilemap();
     maps["LEVEL_1_ENTRY2"]->load(mapTextures["LEVEL_1_ENTRY"],mapLayout["LEVEL_1_ENTRY2"],13,1,sf::Vector2i(160,640), sf::Vector2i (8,8),1);
 }
@@ -167,7 +158,7 @@ GState::GState(sf::RenderWindow* window,std::stack<Resources*>* layers):Resource
 
     music.setVolume(5.0f);
     music.setLoop(true);
-    //music.play();
+    music.play();
 
     if(!textureWall.loadFromFile("images/wall.png")) {
         std::cerr << "Could not load wall" << std::endl;
@@ -184,7 +175,7 @@ GState::GState(sf::RenderWindow* window,std::stack<Resources*>* layers):Resource
     walls.emplace_back(new Wall(&textureWall,sf::Vector2f(150.0,100.0),sf::Vector2f(1500.0f-80.0f,800.0f-40.0f),207.0f));
     walls.emplace_back(new Wall(&textureWall,sf::Vector2f(900.0,100.0),sf::Vector2f(1600.0f-80.0f,770.0f),0.0f));
     walls.emplace_back(new Wall(&textureWall,sf::Vector2f(100.0,100.0),sf::Vector2f(1450.0f-80.0f,810.0f-40.0f),0.0f));
-    teleport.emplace_back(new Wall(&textureWall,sf::Vector2f(50.0,50.0),sf::Vector2f(1890.0f,810.0f),0.0f));
+    //teleport.emplace_back(new Wall(&textureWall,sf::Vector2f(50.0,50.0),sf::Vector2f(1890.0f,810.0f),0.0f));
 
 }
 
@@ -204,7 +195,7 @@ GState::~GState()
     }
 }
 
-void GState::updateCombat()
+void GState::updateCombat(const float& deltaTime)
 {
         enemy=enemies[0];
         for(auto &it:enemies){
@@ -215,14 +206,53 @@ void GState::updateCombat()
         if(player->getAttacking()==true){
             if(enemy){
                 if(enemy->getDistance(*this->player)<this->player->range && enemy->hitbox->getGlobalB().contains(mousePosView)){
-                    if(player->getAtck()==true){
-                    enemy->loseHP(player->attackDmg);
-                    std::cout<<enemy->hp<<std::endl;
+                    if(player->getAtck()){
+                    enemy->loseHP(player->attackDmg,deltaTime);
+                    //std::cout<<enemy->hp<<std::endl;
                     }
                 }
             }
         }
+        for(auto &it:enemies){
+            if(it->getDistance(*this->player)<400){
+                if(it->hitboxAttack->getGlobalB().intersects(player->hitboxAttack->getGlobalBounds())){
+                    it->move(sf::Vector2f(0.0f,0.0f), deltaTime);
 
+                    if(it->getAtck()){
+                        player->loseHP(it->attackDmg,deltaTime);
+                    }
+                    if(it->hp>0){
+                        it->updateAttack();
+                    }
+
+                }else{
+                    if(player->hitboxAttack->getPosition().y > it->hitboxAttack->getPosition().y+it->hitboxAttack->getGlobalB().height){
+                        it->move(sf::Vector2f(0.0f,1.0f), deltaTime);
+                    }
+                    if (player->hitboxAttack->getPosition().y+player->hitboxAttack->getGlobalB().height < it->hitboxAttack->getPosition().y){
+                        it->move(sf::Vector2f(0.0f,-1.0f), deltaTime);
+                    }
+                    if(player->hitboxAttack->getPosition().x > it->hitboxAttack->getPosition().x+it->hitboxAttack->getGlobalB().width){
+                        it->move(sf::Vector2f(1.0f,0.0f), deltaTime);
+                    }
+                    if(player->hitboxAttack->getPosition().x+player->hitboxAttack->getGlobalB().width < it->hitboxAttack->getPosition().x){
+                        it->move(sf::Vector2f(-1.0f,0.0f), deltaTime);
+                    }
+                    if(player->hitboxAttack->getPosition().y > it->hitboxAttack->getPosition().y+it->hitboxAttack->getGlobalB().height&&player->hitboxAttack->getPosition().x > it->hitboxAttack->getPosition().x+it->hitboxAttack->getGlobalB().width){
+                        it->move(sf::Vector2f(1.0f,1.0f), deltaTime);
+                    }
+                    if(player->hitboxAttack->getPosition().y > it->hitboxAttack->getPosition().y+it->hitboxAttack->getGlobalB().height&&player->hitboxAttack->getPosition().x+player->hitboxAttack->getGlobalB().width < it->hitboxAttack->getPosition().x){
+                        it->move(sf::Vector2f(-1.0f,1.0f), deltaTime);
+                    }
+                    if (player->hitboxAttack->getPosition().y+player->hitboxAttack->getGlobalB().height < it->hitboxAttack->getPosition().y&&player->hitboxAttack->getPosition().x > it->hitboxAttack->getPosition().x+it->hitboxAttack->getGlobalB().width){
+                        it->move(sf::Vector2f(1.0f,-1.0f), deltaTime);
+                    }
+                    if (player->hitboxAttack->getPosition().y+player->hitboxAttack->getGlobalB().height < it->hitboxAttack->getPosition().y&&player->hitboxAttack->getPosition().x+player->hitboxAttack->getGlobalB().width < it->hitboxAttack->getPosition().x){
+                        it->move(sf::Vector2f(-1.0f,-1.0f), deltaTime);
+                    }
+                }
+            }
+        }
 }
 
 void GState::updateView()
@@ -265,7 +295,7 @@ void GState::updateInput(const float &deltaTime)
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)){
         if(potionTimer<1){
-            player->gainHP(player->hpMax*0.5);
+            player->gainHP(player->hpMax*0.8);
             potionTimer=30;
         }
     }
@@ -303,17 +333,28 @@ void GState::updateInput(const float &deltaTime)
 
 void GState::update(const float &deltaTime)
 {
-
+    if(oneSecond>1){
+        oneSecond=0;
+        if(player->hp>0){
+            player->gainHP(1);
+        }
+    }
+    oneSecond+=deltaTime;
     if(potionTimer>0)
         potionTimer-=deltaTime;
     this->updateMousePos();
     this->updateInput(deltaTime);
-    this->player->hitbox->update();
-    this->player->hitboxAttack->update();
+    this->playerGUI->update(deltaTime, potionTimer);
+    this->player->hitbox->update(player->getDie());
+    this->player->hitboxAttack->update(player->getDie());
 
     for(auto &it:enemies){
-        it->hitbox->update();
-        it->hitboxAttack->update();
+        it->hitbox->update(it->getDie());
+        it->hitboxAttack->update(it->getDie());
+    }
+
+    for(unsigned int i=1;i<enemies.size();i++){
+        collision::areColliding(enemies[i-1]->hitboxAttack,enemies[i]->hitboxAttack,enemies[i],deltaTime,enemies[i-1]->hitboxAttack->getRotation(),0);
     }
     for(auto &it:walls){
         collision::areColliding(it,player->hitbox,player,deltaTime,it->getRotation(),2);
@@ -334,14 +375,14 @@ void GState::update(const float &deltaTime)
             it->setRenderNum(0);
         }
     }
-    if(teleport[0]->getGlobalBounds().intersects(player->hitbox->getGlobalBounds())){
+    /*if(teleport[0]->getGlobalBounds().intersects(player->hitbox->getGlobalBounds())){
         player->setPosition(sf::Vector2f(3000,2000));
-    }
+    }*/
 
     this->player->update(deltaTime);
+
     this->updateView();
-    this->playerGUI->update(deltaTime, potionTimer);
-    this->updateCombat();
+    this->updateCombat(deltaTime);
 }
 
 void GState::render(sf::RenderWindow* window)
@@ -382,14 +423,14 @@ void GState::render(sf::RenderWindow* window)
     }
     window->draw(*maps["LEVEL_1_TREES"]);
     window->draw(*maps["LEVEL_1_WALL2"]);
+    playerGUI->render(window);
 
-
-    for(auto &it:walls){
+    /*for(auto &it:walls){
         window->draw(*it);
     }
     for(auto &it:teleport){
         window->draw(*it);
-    }
+    }*/
 
 
 }

@@ -8,10 +8,13 @@ public:
     Enemy();
     virtual ~Enemy();
 
-    //virtual void updateAttack();
-    //virtual void updateAnimation(const float &deltaTime);
+    virtual void updateAttack()=0;
+    virtual void updateAnimation(const float &deltaTime)=0;
 
-    virtual void loseHP(const int hp);
+
+    bool getAtck();
+    bool getAttacking();
+    virtual void loseHP(const int hp, const float deltaTime);
     virtual void gainHP(const int hp);
     virtual void update(const float &deltaTime)=0;
     virtual void setRenderNum(int x);
@@ -20,6 +23,7 @@ public:
 protected:
     int enemyType;
     int renderNum=0;
+    int one=0;
 };
 
 #endif // ENEMY_H
