@@ -6,7 +6,7 @@ Sterujemy jedną postacią w rzucie izometrycznym, walczać z wrogami.
 Biblioteki z których korzystam to SFML.
 
 # Sterowanie:
-W-góra
+W-góra \n
 S-dół
 A-lewo
 D-prawo
