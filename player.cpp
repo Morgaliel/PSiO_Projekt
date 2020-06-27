@@ -27,7 +27,7 @@ Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textur
 
     this->createHitbox(this->sprite,sf::FloatRect(15,15,40.0f,70.0f));
     this->createHitbox(this->sprite,sf::FloatRect(15,60,40.0f,25.0f),2);
-    this->createMove(250.0f);
+    this->createMove(500.0f);
     this->createAnimation(textures["PLAYER_NEUTRAL"]);
     this->createAnimation(textures["PLAYER_RUN"]);
     this->createAnimation(textures["PLAYER_ATTACK"]);

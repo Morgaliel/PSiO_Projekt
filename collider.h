@@ -11,8 +11,8 @@ bool areColliding(const T1& object1, const T2& object2, T3& object3,const float 
     // LEVEL 0 (axis-aligned bounding box)
 
     if(collisionLevel==0){
-    sf::Vector2f otherPosition = object1->getPosition();
-    sf::Vector2f thisPosition = object2->getPosition();
+    sf::Vector2f otherPosition = object1->getPosition()+object1->getSize()/2.0f;
+    sf::Vector2f thisPosition = object2->getPosition()+object2->getSize()/2.0f;
     sf::Vector2f otherHalfSize = sf::Vector2f(object1->getSize().x/2.0f,object1->getSize().y/2.0f);
     sf::Vector2f thisHalfSize = sf::Vector2f(object2->getSize().x/2.0f,object2->getSize().y/2.0f);
 

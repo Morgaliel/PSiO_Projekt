@@ -19,6 +19,7 @@ SOURCES += \
         main.cpp \
         mainmenu.cpp \
         move.cpp \
+        object.cpp \
         playergui.cpp \
         resources.cpp \
         tilemap.cpp \
@@ -45,6 +46,7 @@ HEADERS += \
     hitbox.h \
     mainmenu.h \
     move.h \
+    object.h \
     playergui.h \
     resources.h \
     tilemap.h \

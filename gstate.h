@@ -4,6 +4,7 @@
 #include <playergui.h>
 #include <enemy.h>
 #include <goatman.h>
+#include <object.h>
 
 static const float VIEW_HEIGHT=600.0f;
 
@@ -24,6 +25,7 @@ private:
     sf::View* view;
     Player* player;
     std::vector<Enemy*> enemies;
+    std::vector<Object*> objects;
     Enemy* enemy;
     PlayerGUI* playerGUI;
     std::map<std::string,Tilemap*> maps;

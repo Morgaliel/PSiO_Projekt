@@ -12,6 +12,7 @@ private:
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
     sf::Vector2u tileSize;
+    sf::Vector2i vOrigin;
 };
 
 

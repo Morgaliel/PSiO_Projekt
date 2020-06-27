@@ -21,6 +21,7 @@ protected:
     std::map<std::string, sf::Texture> texturesPlayer;
     std::map<std::string, sf::Texture> texturesEnemies;
     std::map<std::string, sf::Texture> mapTextures;
+    std::map<std::string, sf::Texture> objTextures;
     std::map<std::string, std::vector<int>> mapLayout;
     sf::RenderWindow* window;
     bool end;
