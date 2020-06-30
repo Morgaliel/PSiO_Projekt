@@ -15,9 +15,9 @@ Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textur
     characterType=0;
     this->initVariables();
     this->exp=0;
-    this->hpMax=100;
-    this->hp=90;
-    this->attackDmg=5;
+    this->hpMax=300;
+    this->hp=300;
+    this->attackDmg=15;
     this->range=60.0f;
     this->isAttacking=false;
     this->setDie(false);
@@ -27,15 +27,15 @@ Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textur
 
     this->createHitbox(this->sprite,sf::FloatRect(15,15,40.0f,70.0f));
     this->createHitbox(this->sprite,sf::FloatRect(15,60,40.0f,25.0f),2);
-    this->createMove(500.0f);
+    this->createMove(250.0f);
     this->createAnimation(textures["PLAYER_NEUTRAL"]);
     this->createAnimation(textures["PLAYER_RUN"]);
     this->createAnimation(textures["PLAYER_ATTACK"]);
 
     //creating animation (I FORGOT TWICE): load texture, createAnimation, addAnimation
     this->animation[0].addAnimation("PLAYER_NEUTRAL",sf::Vector2u(8,16),0.1f);
-    this->animation[1].addAnimation("PLAYER_RUN",sf::Vector2u(8,16),0.1f);
-    this->animation[2].addAnimation("PLAYER_ATTACK",sf::Vector2u(15,16),0.05f);
+    this->animation[1].addAnimation("PLAYER_RUN",sf::Vector2u(8,16),0.09f);
+    this->animation[2].addAnimation("PLAYER_ATTACK",sf::Vector2u(15,16),0.04f);
 
 }
 

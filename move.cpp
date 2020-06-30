@@ -53,7 +53,7 @@ void Move::move(const sf::Vector2f direction, const float& deltaTime, unsigned i
             *row=10;
         }
     }
-    else{
+    else if(type==2){
         if(direction.x==-1.0f&&direction.y==1.0f){
             *row=5;
         }
@@ -77,6 +77,31 @@ void Move::move(const sf::Vector2f direction, const float& deltaTime, unsigned i
         }
         else if(direction.y==1.0f){
             *row=4;
+        }
+    }else{
+        if(direction.x==-1.0f&&direction.y==1.0f){
+            *row=1;
+        }
+        else if(direction.x==1.0f&&direction.y==1.0f){
+            *row=7;
+        }
+        else if(direction.x==-1.0f&&direction.y==-1.0f){
+            *row=3;
+        }
+        else if(direction.x==1.0f&&direction.y==-1.0f){
+            *row=5;
+        }
+        else if(direction.x==-1.0f){
+            *row=2;
+        }
+        else if(direction.x==1.0f){
+            *row=6;
+        }
+        else if(direction.y==-1.0f){
+            *row=4;
+        }
+        else if(direction.y==1.0f){
+            *row=0;
         }
     }
 

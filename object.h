@@ -12,6 +12,7 @@ public:
     void update(const float& deltaTime);
     virtual void updateAttack();
     virtual void updateAnimation(const float &deltaTime);
+    int getType();
 protected:
     int objectType;
 };

@@ -3,15 +3,16 @@
 Goatman::Goatman(sf::Vector2f position, std::map<std::string, sf::Texture> &textures)
 {
     this->enemyType=1;
-    this->hpMax=100;
-    this->hp=20;
-    this->attackDmg=5;
+    this->characterType=2;
+    this->hpMax=40;
+    this->hp=40;
+    this->attackDmg=15;
     this->isAttacking=false;
     this->setDie(false);
     this->setPosition(position);
     this->createHitbox(this->sprite,sf::FloatRect(15,5,40.0f,70.0f));
     this->createHitbox(this->sprite,sf::FloatRect(15,50,40.0f,25.0f),2);
-    this->createMove(50.0f);
+    this->createMove(100.0f);
 
     this->createAnimation(textures["GOATMAN_NEUTRAL"]);
     this->createAnimation(textures["GOATMAN_WALK"]);
@@ -49,7 +50,7 @@ void Goatman::updateAnimation(const float &deltaTime)
         if(this->animation[2].isDone("GOATMAN_ATTACK")){
             this->isAttacking=false;
             this->one=0;
-            //this->sprite.setOrigin(0.0f,0.0f);
+            this->sprite.setOrigin(0.0f,0.0f);
         }
     }
 }

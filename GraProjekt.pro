@@ -8,6 +8,7 @@ PRECOMPILED_HEADER  = includes.h
 
 
 SOURCES += \
+        andariel.cpp \
         animation.cpp \
         button.cpp \
         character.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
         object.cpp \
         playergui.cpp \
         resources.cpp \
+        skeleton.cpp \
         tilemap.cpp \
         wall.cpp \
         player.cpp
@@ -35,6 +37,7 @@ CONFIG(debug, debug|release){
 }
 
 HEADERS += \
+    andariel.h \
     animation.h \
     button.h \
     character.h \
@@ -49,6 +52,7 @@ HEADERS += \
     object.h \
     playergui.h \
     resources.h \
+    skeleton.h \
     tilemap.h \
     wall.h \
     player.h

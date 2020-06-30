@@ -19,14 +19,10 @@ bool Hitbox::checkIntersect(const sf::FloatRect& frect)
     return getGlobalBounds().intersects(frect);
 }
 
-void Hitbox::update(bool isDied)
+void Hitbox::update()
 {
-    if(!isDied)
-    {
         setPosition(this->sprite.getPosition().x+this->position.left,this->sprite.getPosition().y+this->position.top);
-    }else{
-        setPosition(0,0);
-    }
+
 }
 
 

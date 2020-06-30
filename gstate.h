@@ -4,6 +4,8 @@
 #include <playergui.h>
 #include <enemy.h>
 #include <goatman.h>
+#include <andariel.h>
+#include <skeleton.h>
 #include <object.h>
 
 static const float VIEW_HEIGHT=600.0f;
@@ -28,6 +30,7 @@ private:
     std::vector<Object*> objects;
     Enemy* enemy;
     PlayerGUI* playerGUI;
+    std::vector<PlayerGUI*> enemyGUI;
     std::map<std::string,Tilemap*> maps;
     sf::Texture textureWall;
     std::vector<Wall*>walls;

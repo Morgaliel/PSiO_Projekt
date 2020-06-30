@@ -9,7 +9,7 @@ public:
 
     bool checkIntersect(const sf::FloatRect& frect);
 
-    void update(bool isDied);
+    void update();
     sf::FloatRect getGlobalB();
 
     sf::FloatRect globalPosition;
