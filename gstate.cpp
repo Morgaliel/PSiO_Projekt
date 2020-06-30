@@ -113,11 +113,16 @@ void GState::initTextures()
     }
 
 
+    if(!textureWall.loadFromFile("images/wall.png")) {
+        std::cerr << "Could not load wall" << std::endl;
+    }
+    textureWall.setRepeated(true);
+
+
 }
 
-void GState::initPlayer()
+void GState::initObjects()
 {
-    //1400.0f,1020.0f
     this->player=new Player(sf::Vector2f(1400.0f,1020.0f), texturesPlayer);
     this->playerGUI=new PlayerGUI(this->player);
 
@@ -270,17 +275,17 @@ void GState::initMaps()
     mapLayout["LEVEL_1"]={
             183, 183, 183, 184, 184, 184, 184, 184, 184, 184, 183, 183, 183,
             183, 183, 183, 184, 184, 186, 185, 184, 184, 184, 183, 183, 183,
-            7, 7, 7, 7, 99, 189, 188, 187, 97, 7, 7, 7, 7,
-            7, 7, 7, 7, 143, 52, 52, 52, 113, 7, 7, 7, 7,
-            4, 7, 18, 18, 7, 4, 7, 4, 4, 4, 7, 4, 7,
-            7, 7, 17, 14, 49, 7, 182, 181, 180, 7, 7, 4, 7,
-            4, 7, 8, 52, 9, 4, 179, 178, 177, 4, 7, 4, 7,
-            7, 7, 7, 7, 7, 7, 176, 175, 174, 7, 7, 7, 7,
-            7, 7, 4, 4, 7, 4, 7, 4, 7, 4, 4, 4, 4,
-            7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
-            7, 7, 4, 4, 7, 4, 7, 4, 7, 4, 4, 4, 4,
-            7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
-            7, 7, 4, 4, 7, 4, 7, 4, 7, 4, 4, 4, 4,
+              7,   7,   7,   7,  99, 189, 188, 187,  97,   7,   7,   7,   7,
+              7,   7,   7,   7, 143,  52,  52,  52, 113,   7,   7,   7,   7,
+              4,   7,  18,  18,   7,   4,   7,   4,   4,   4,   7,   4,   7,
+              7,   7,  17,  14,  49,   7, 182, 181, 180,   7,   7,   4,   7,
+              4,   7,   8,  52,   9,   4, 179, 178, 177,   4,   7,   4,   7,
+              7,   7,   7,   7,   7,   7, 176, 175, 174,   7,   7,   7,   7,
+              7,   7,   4,   4,   7,   4,   7,   4,   7,   4,   4,   4,   4,
+              7,   7,   7,   7,   7,   7,   7,   7,   7,   7,   7,   7,   7,
+              7,   7,   4,   4,   7,   4,   7,   4,   7,   4,   4,   4,   4,
+              7,   7,   7,   7,   7,   7,   7,   7,   7,   7,   7,   7,   7,
+              7,   7,   4,   4,   7,   4,   7,   4,   7,   4,   4,   4,   4,
 };
     mapLayout["LEVEL_1_OBJ"]={
             35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
@@ -291,25 +296,25 @@ void GState::initMaps()
 };
     mapLayout["LEVEL_1_WALL"]={
             35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            7, 5, 4, 3, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            2, 35, 56, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            1, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            1, 52, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            1, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            0, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+             7,  5,  4,  3, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+             2, 35, 56, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+             1, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+             1, 52, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+             1, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+             0, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
 };
     mapLayout["LEVEL_1_WALL2"]={
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 7,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 2,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 1,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 1,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 1,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 1,
-            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 0,
+            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,  7,
+            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,  2,
+            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,  1,
+            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,  1,
+            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,  1,
+            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,  1,
+            35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,  0,
 };
     mapLayout["LEVEL_1_WALL_CORNER"]={
             35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-            6, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35
+             6, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35
 };
     mapLayout["LEVEL_1_TREES"]={
             120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120,
@@ -318,17 +323,17 @@ void GState::initMaps()
             120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120,
             120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120,
             120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120,
-            120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 54, 9,
-            120, 120, 120, 120, 120, 120, 120, 120, 120, 36, 55, 10, 120,
-            120, 99, 120, 120, 120, 18, 120, 27, 37, 45, 120, 63, 120,
-            100, 0, 108, 36, 19, 9, 28, 72, 46, 90, 64, 120, 81,
-            1, 109, 37, 120, 10, 120, 73, 120, 91, 120, 120, 82, 120,
+            120, 120, 120, 120, 120, 120, 120, 120, 120, 120, 120,  54,   9,
+            120, 120, 120, 120, 120, 120, 120, 120, 120,  36,  55,  10, 120,
+            120,  99, 120, 120, 120,  18, 120,  27,  37,  45, 120,  63, 120,
+            100,   0, 108,  36,  19,   9,  28,  72,  46,  90,  64, 120,  81,
+              1, 109,  37, 120,  10, 120,  73, 120,  91, 120, 120,  82, 120,
 };
     mapLayout["LEVEL_1_ENTRY"]={
-            20, 19, 18, 17, 16, 15, 55, 55, 12, 11, 10, 9, 8,
+             20,  19,  18,  17,  16,  15,  55,  55,  12,  11,  10,   9,   8,
 };
     mapLayout["LEVEL_1_ENTRY2"]={
-            55, 55, 55, 55, 55, 55, 14, 13, 55, 55, 55, 55, 55,
+             55,  55,  55,  55,  55,  55,  14,  13,  55,  55,  55,  55,  55,
 };
 
     mapLayout["LEVEL_2_FLOOR"]={
@@ -618,17 +623,12 @@ GState::GState(sf::RenderWindow* window,std::stack<Resources*>* layers):Resource
     this->view=new sf::View();
     this->view->setSize(VIEW_HEIGHT*aspectRatio,VIEW_HEIGHT);
     this->initTextures();
-    this->initPlayer();
+    this->initObjects();
     this->initMaps();
 
     music.setVolume(5.0f);
     music.setLoop(true);
-    //music.play();
-
-    if(!textureWall.loadFromFile("images/wall.png")) {
-        std::cerr << "Could not load wall" << std::endl;
-    }
-    textureWall.setRepeated(true);
+    music.play();
 
     //lvl 1
     walls.emplace_back(new Wall(&textureWall,sf::Vector2f(1400.0,100.0),sf::Vector2f(876.0f-160.0f,890.0f),334.0f));
@@ -668,12 +668,10 @@ GState::GState(sf::RenderWindow* window,std::stack<Resources*>* layers):Resource
     walls.emplace_back(new Wall(&textureWall,sf::Vector2f(50.0,60.0),sf::Vector2f(1860.0f,2750.0f),0.0f));
     walls.emplace_back(new Wall(&textureWall,sf::Vector2f(200.0,20.0),sf::Vector2f(3440.0f,2570.0f),207.0f));
     walls.emplace_back(new Wall(&textureWall,sf::Vector2f(40.0,40.0),sf::Vector2f(3310.0f,2530.0f),0.0f));
-    //walls.emplace_back(new Wall(&textureWall,sf::Vector2f(40.0,20.0),sf::Vector2f(3520.0f,2620.0f),0.0f));
 
     //teleport
     teleport.emplace_back(new Wall(&textureWall,sf::Vector2f(50.0,50.0),sf::Vector2f(1890.0f,810.0f),0.0f));
     teleport.emplace_back(new Wall(&textureWall,sf::Vector2f(200.0,50.0),sf::Vector2f(1570.0f,3580.0f),207.0f));
-
 }
 
 GState::~GState()
@@ -776,12 +774,6 @@ void GState::updateView()
     this->view->setCenter(this->player->getPosition().x+39,this->player->getPosition().y+46);
 }
 
-void GState::updatePlayerGUI(const float &deltaTime)
-{
-    this->playerGUI->update(deltaTime, potionTimer);
-}
-
-
 void GState::updateInput(const float &deltaTime)
 {
     this->player->update(deltaTime);
@@ -866,7 +858,7 @@ void GState::update(const float &deltaTime)
         potionTimer-=deltaTime;
     this->updateMousePos();
     this->updateInput(deltaTime);
-    this->playerGUI->update(deltaTime, potionTimer);
+    this->playerGUI->update(potionTimer);
     this->player->hitbox->update();
     this->player->hitboxAttack->update();
 
@@ -883,8 +875,6 @@ void GState::update(const float &deltaTime)
             enemy=nullptr;
         }
     }
-
-
 
     for(auto &it:walls){
         collision::areColliding(it,player->hitbox,player,deltaTime,it->getRotation(),2);
@@ -921,7 +911,6 @@ void GState::update(const float &deltaTime)
 
         if(it->hitboxAttack){
             it->hitboxAttack->update();
-            //std::cout<<it->hitboxAttack->getGlobalB().width<<"     "<<it->hitboxAttack->getGlobalB().height<<std::endl;
             if(this->player->hitboxAttack->getPosition().y<it->hitboxAttack->getPosition().y){
                 it->setRenderNum(1);
             }else{
@@ -935,6 +924,7 @@ void GState::update(const float &deltaTime)
     for(unsigned int i=1;i<enemies.size();i++){
 
         for(auto &it:objects){
+            if(it->getType()==0||it->getType()==1||it->getType()==2||it->getType()==3||it->getType()==8||it->getType()==9||it->getType()==10)
             collision::areColliding(it->hitboxAttack,enemies[i]->hitboxAttack,enemies[i],deltaTime,it->hitboxAttack->getRotation(),0);
         }
     }
@@ -952,23 +942,6 @@ void GState::render(sf::RenderWindow* window)
     window->draw(*maps["LEVEL_2_WALL"]);
     window->draw(*maps["LEVEL_1_WALL_CORNER"]);
     window->draw(*maps["LEVEL_1_OBJ"]);
-
-
-    /*for(auto &en:enemies){
-        for(auto &it:objects){
-            if(en->hitboxAttack->getPosition().y<it->hitboxAttack->getPosition().y){
-                if(it->getRenderNum()==0){
-                    en->render(*window);
-                    it->render(*window);
-                }
-            }else{
-                if(it->getRenderNum()==0){
-                    it->render(*window);
-                    en->render(*window);
-                }
-            }
-        }
-    }*/
 
     if(this->player->hitbox->getGlobalBounds().top>878){
         for(auto &it:objects){
@@ -1120,7 +1093,6 @@ void GState::render(sf::RenderWindow* window)
 
     window->draw(*maps["LEVEL_1_TREES"]);
     window->draw(*maps["LEVEL_1_WALL2"]);
-
     window->draw(*maps["LEVEL_2_CORNER2"]);
     window->draw(*maps["LEVEL_2_WALL2"]);
     for(unsigned int i=0;i<enemies.size();i++){
@@ -1130,15 +1102,11 @@ void GState::render(sf::RenderWindow* window)
     }
 
     playerGUI->render(window,enemies.size());
+
     /*for(auto &it:walls){
         window->draw(*it);
     }
     for(auto &it:teleport){
         window->draw(*it);
     }*/
-
-
 }
-
-
-

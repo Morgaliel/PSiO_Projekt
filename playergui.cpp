@@ -58,7 +58,7 @@ PlayerGUI::~PlayerGUI()
 
 }
 
-void PlayerGUI::update(const float &deltaTime, const float& potionTimer)
+void PlayerGUI::update(const float& potionTimer)
 {
     float percent=static_cast<float>(this->player->hp)/static_cast<float>(this->player->hpMax);
     this->hpBarIn.setSize(sf::Vector2f(std::floor(this->hpMaxWidth*percent),this->hpBarIn.getSize().y));

@@ -9,8 +9,8 @@ public:
     Resources(sf::RenderWindow* window,std::stack<Resources*>* layers);
     virtual ~Resources();
 
-    const bool& getEnd() const; //getquit
-    void endLayer(); //endState
+    const bool& getEnd() const;
+    void endLayer();
 
     virtual void updateMousePos();
     virtual void updateInput(const float& deltaTime)=0;

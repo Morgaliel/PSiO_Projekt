@@ -19,7 +19,6 @@ Goatman::Goatman(sf::Vector2f position, std::map<std::string, sf::Texture> &text
     this->createAnimation(textures["GOATMAN_ATTACK"]);
     this->createAnimation(textures["GOATMAN_DIE"]);
 
-    //creating animation (I FORGOT TWICE): load texture, createAnimation, addAnimation
     this->animation[0].addAnimation("GOATMAN_NEUTRAL",sf::Vector2u(10,8),0.1f);
     this->animation[1].addAnimation("GOATMAN_WALK",sf::Vector2u(8,8),0.1f);
     this->animation[2].addAnimation("GOATMAN_ATTACK",sf::Vector2u(16,8),0.05f);

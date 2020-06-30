@@ -11,7 +11,7 @@ public:
     PlayerGUI(Enemy* enemy,Player* player);
     virtual ~PlayerGUI();
 
-    void update(const float& deltaTime, const float& potionTimer);
+    void update(const float& potionTimer);
     void updateEnemy();
     void render(sf::RenderWindow* window,int x);
     void renderEnemy(sf::RenderWindow* window);

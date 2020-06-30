@@ -11,14 +11,13 @@ Andariel::Andariel(sf::Vector2f position, std::map<std::string, sf::Texture> &te
     this->setPosition(position);
     this->createHitbox(this->sprite,sf::FloatRect(60,40,50.0f,135.0f));
     this->createHitbox(this->sprite,sf::FloatRect(60,140,50.0f,35.0f),2);
-    this->createMove(120.0f);
+    this->createMove(150.0f);
 
     this->createAnimation(textures["ANDARIEL_NEUTRAL"]);
     this->createAnimation(textures["ANDARIEL_WALK"]);
     this->createAnimation(textures["ANDARIEL_ATTACK"]);
     this->createAnimation(textures["ANDARIEL_DIE"]);
 
-    //creating animation (I FORGOT TWICE): load texture, createAnimation, addAnimation
     this->animation[0].addAnimation("ANDARIEL_NEUTRAL",sf::Vector2u(16,8),0.1f);
     this->animation[1].addAnimation("ANDARIEL_WALK",sf::Vector2u(12,8),0.1f);
     this->animation[2].addAnimation("ANDARIEL_ATTACK",sf::Vector2u(16,8),0.05f);

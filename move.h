@@ -17,7 +17,7 @@ public:
 
 private:
     sf::Sprite& sprite;
-    float speed; //maxVelocity
+    float speed;
     sf::Vector2f velocity;
 
 };

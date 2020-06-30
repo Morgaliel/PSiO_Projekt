@@ -23,6 +23,8 @@ Button::Button(float x, float y, float width,float height,sf::Font* font,std::st
     this->pressedColor=pressedColor;
 
     this->jenson.setFillColor(this->idleColor);
+    this->jenson.setOutlineThickness(2.0f);
+    this->jenson.setOutlineColor(sf::Color(212, 81, 25));
 }
 
 Button::~Button()

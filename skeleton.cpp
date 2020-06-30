@@ -18,7 +18,6 @@ Skeleton::Skeleton(sf::Vector2f position, std::map<std::string, sf::Texture> &te
     this->createAnimation(textures["SKELETON_ATTACK"]);
     this->createAnimation(textures["SKELETON_DIE"]);
 
-    //creating animation (I FORGOT TWICE): load texture, createAnimation, addAnimation
     this->animation[0].addAnimation("SKELETON_NEUTRAL",sf::Vector2u(13,8),0.1f);
     this->animation[1].addAnimation("SKELETON_WALK",sf::Vector2u(8,8),0.08f);
     this->animation[2].addAnimation("SKELETON_ATTACK",sf::Vector2u(12,8),0.05f);

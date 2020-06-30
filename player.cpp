@@ -32,7 +32,6 @@ Player::Player(sf::Vector2f position, std::map<std::string, sf::Texture> &textur
     this->createAnimation(textures["PLAYER_RUN"]);
     this->createAnimation(textures["PLAYER_ATTACK"]);
 
-    //creating animation (I FORGOT TWICE): load texture, createAnimation, addAnimation
     this->animation[0].addAnimation("PLAYER_NEUTRAL",sf::Vector2u(8,16),0.1f);
     this->animation[1].addAnimation("PLAYER_RUN",sf::Vector2u(8,16),0.09f);
     this->animation[2].addAnimation("PLAYER_ATTACK",sf::Vector2u(15,16),0.04f);

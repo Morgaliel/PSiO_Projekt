@@ -18,7 +18,6 @@ public:
 
     void updateCombat(const float &deltaTime);
     void updateView();
-    void updatePlayerGUI(const float &deltaTime);
     void updateInput(const float &deltaTime);
     void update(const float &deltaTime);
     void render(sf::RenderWindow* window);
@@ -39,7 +38,7 @@ private:
     float oneSecond;
 
     void initTextures();
-    void initPlayer();
+    void initObjects();
     void initMaps();
 };
 
