@@ -112,13 +112,6 @@ void GState::initTextures()
         std::cerr<<"Texture not loaded";
     }
 
-
-    if(!textureWall.loadFromFile("images/wall.png")) {
-        std::cerr << "Could not load wall" << std::endl;
-    }
-    textureWall.setRepeated(true);
-
-
 }
 
 void GState::initObjects()
